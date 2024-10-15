@@ -8,12 +8,12 @@ import { identifierName } from '@angular/compiler';
     providedIn: 'root'
 })
 export class DocumentGroupsApiService {
-    //private baseUrl = environment.apis.default.url + '/api/document/';
-    private baseUrl = environment.apis.default.url + '/api/review-docs/';
+    private docbaseUrl = environment.apis.default.url + '/api/document/';
+    //private docbaseUrl = environment.apis.default.url + '/api/review-docs/';
     constructor(private http: HttpClient) { }
 
     getGroups(tenantid): Observable<DocumentGroup[]> {
-        let url = this.baseUrl + 'groups';
+        let url = this.docbaseUrl + 'groups';
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid;
 
