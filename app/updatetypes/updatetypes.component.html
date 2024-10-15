@@ -1,0 +1,46 @@
+<div class="container">
+    <p *ngIf="!isTenantUser" class="float-end">
+        You are viewing <strong>{{tenant.name}}</strong> data.
+        <a [routerLink]="['']">Click here to change</a>
+    </p>
+    <div class="p-5 text-center">
+        <h1>{{ '::EventTypesHeader' | abpLocalization }}</h1>
+        <div *ngIf="loading; else table">
+            <img src="../../assets/images/logo/loading.gif" alt="">
+            <div class="loading">Loading...</div>
+        </div>
+        <ng-template #table>
+            <p class="lead px-lg-5 mx-lg-5" *ngIf="!tenant.name; else DataTable">
+                No tenant selected. <br>
+                Select the tenant from <a [routerLink]="['']">here</a>
+            </p>
+        </ng-template>
+        <ng-template #DataTable>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Event Type</th>
+                        <th>#of Updates</th>
+                        <th *ngIf="enableReviewMultipleUpdatesPage">#of Updates (10 per page) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!loading && (!updatetypes || updatetypes.length === 0)">
+                        <td colspan="2" class="text-center">No updates to review</td>
+                    </tr>
+                    <tr *ngFor="let item of updatetypes">
+                        <td>
+                            {{item.description}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-sm min-width-100" [routerLink]="['/review-update']" [queryParams]="{eventTypeId:item.id}">Review {{item.numberOfUpdates}}</button>
+                        </td>
+                        <td *ngIf="enableReviewMultipleUpdatesPage">
+                            <button class="btn btn-primary btn-sm min-width-100" [routerLink]="['/review-updates']" [queryParams]="{eventTypeId:item.id}">Review {{item.numberOfUpdates}}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </div>
+</div>

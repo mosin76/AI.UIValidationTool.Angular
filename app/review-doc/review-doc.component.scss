@@ -1,0 +1,179 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 2400px; /* You can adjust the max-width as needed */
+    padding: 1rem;
+}
+
+/* Container for the entire layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1200px; /* You can adjust the max-width as needed */
+    padding: 0px;
+}
+
+/* Header styling */
+.header {
+    
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Content section styling */
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 0px;
+}
+
+/* Image container styling */
+.image-container {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Form container styling */
+.form-container {
+    flex: 1;
+    text-align:center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .image-container,
+    .form-container {
+        margin: 0;
+    }
+
+    .image-container {
+        margin-bottom: 20px;
+    }
+}
+
+/* Additional responsive rules for landscape images */
+@media (orientation: landscape) and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .image-container {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+}
+
+.float-end {
+    float: right;
+}
+
+
+.text-right {
+    text-align: right;
+}
+
+.table {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.table.borderless td,
+.table.borderless th {
+    border: none;
+}
+
+.table .key {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-right: 1rem;
+    text-align: right; /* Align keys to the right */
+    min-width: 200px;
+    vertical-align: top;
+}
+
+.table .value {
+    font-size: 1.1rem;
+    padding-left: 1rem;
+    text-align: left; /* Align values to the left */
+}
+
+.classification-item {
+    //border-bottom: 1px solid #dee2e6; /* Horizontal line color matching the outer table border */
+    padding: 1px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.classification-item:last-child {
+    border-bottom: none; /* Remove the bottom border for the last item */
+}
+
+.custom-label-popup {
+    margin-top: 10px;
+}
+
+.custom-label-popup .form-control {
+    margin-bottom: 5px;
+}
+
+.btn-lg {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.thumb-dirty-add.thumb-icons {
+    color: green !important;
+    //border: 1px solid green !important;
+    //border-radius: 50%;
+    padding: 2px;
+}
+
+.thumb-dirty-remove.thumb-icons {
+    color: red !important;
+    //border: 1px solid red !important;
+    //border-radius: 50%;
+    padding: 2px;
+}
+
+.thumb-dirty-none, .thumb-icons {
+    color: lightgray !important;
+    //border: 1px solid grey !important;
+    //border-radius: 50%;
+    padding: 2px !important;
+}
+
+.text-dirty-add {
+    color: green !important;
+    font-weight: 700;
+}
+
+.btn-xs {
+    margin-left: 5px !important;
+    font-size: 10px !important;
+    --bs-btn-padding-x: 5px !important;
+    --bs-btn-padding-y: 0px !important;
+}
+
+.section-separator {
+    border: none;
+    border-top: 2px solid #808080;
+    margin: 10px 0;
+}

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="p-2 text-center">
+    <h1>{{ '::Welcome' | abpLocalization }}</h1>
+
+    <!-- <p class="lead px-lg-5 mx-lg-5">{{ '::LongWelcomeMessage' | abpLocalization }}</p> -->
+    <div *ngIf="isTenantUser; else TenantsList">
+      <p class="lead px-lg-5 mx-lg-5">Welcome to {{tenant.name}} updates portal.</p>
+      <a [routerLink]="['/updatetypes']">Click Review Updates to view the update types</a>
+    </div>
+    <ng-template #TenantsList>
+      <p class="lead px-lg 5 mx-lg-5">Please select a tenant to review the content</p>
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let tenant of tenants">
+          <div class="card" style=" border:1px solid grey">
+              <h5 class="card-title">
+                  {{tenant.name}}</h5>
+              <div class="card-body">
+                  <a *abpPermission="'ValidationApp.URTAPermission'" (click)="gotoReviewUpdates(tenant)" class="btn btn-link">Review Updates</a>
+                  <a *abpPermission="'ValidationApp.DPTAPermission'" (click)="gotoReviewDocuments(tenant)" class="btn btn-link">Review Documents/Images</a>
+              </div>
+          
+        </div>
+      </div>
+          </div>
+    </ng-template>
+  </div>
+</div>

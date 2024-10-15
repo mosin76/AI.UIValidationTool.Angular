@@ -1,0 +1,33 @@
+/* Styles for the home component */
+
+th, td {
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    color: black !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+tbody tr{
+    cursor: pointer;
+    // &:hover {
+    //     background-color: lightseagreen;
+    // }
+}
+
+.min-width-100 {
+    min-width: 100px;
+}
+
+.custom-card {
+    cursor: pointer;
+    &:hover {
+        background-color: lightcoral;
+        color: white;
+        .card-title, .card-text {
+            color: white;
+        }
+    }
+}
