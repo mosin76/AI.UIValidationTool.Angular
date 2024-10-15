@@ -8,20 +8,20 @@ import { Response } from '../shared/utils.service';
     providedIn: 'root'
 })
 export class ReviewDocService {
-    private baseUrl = environment.apis.default.url + '/api/review-docs/';
-
+    //private baseUrlDoc = environment.apis.default.url + '/api/review-docs/';
+    private baseUrlDoc = environment.apis.default.url + '/api/document/';
     constructor(private http: HttpClient) { }
 
     downloadDocument(documentId): Observable<any> {
-        return this.http.get(this.baseUrl + 'document-download/' + documentId, { responseType: 'blob' });
+        return this.http.get(this.baseUrlDoc + 'document-download/' + documentId, { responseType: 'blob' });
     }
 
     getDownloadUrl(documentId): string {
-        return this.baseUrl + 'document-download/' + documentId;
+        return this.baseUrlDoc + 'document-download/' + documentId;
     }
 
     getNextDocumentInfo(tenantid, caseId, curDocId): Observable<Response<DocumentInfoResponse>> {
-        let url = this.baseUrl + 'document-next';
+        let url = this.baseUrlDoc + 'document-next';
 
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid + '&caseId=' + caseId + "&curDocId=" + (curDocId === null ? 0 : curDocId);
@@ -30,7 +30,7 @@ export class ReviewDocService {
     }
 
     getDocumentInfo(tenantid, docId): Observable<Response<DocumentInfoResponse>> {
-        let url = this.baseUrl + 'document-by-id';
+        let url = this.baseUrlDoc + 'document-by-id';
 
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid + "&docId=" + docId;
@@ -38,16 +38,20 @@ export class ReviewDocService {
         return this.http.get<Response<DocumentInfoResponse>>(url);
     }
 
-    getLabels(): Observable<any> {
-        return this.http.get<DocLabel[]>(this.baseUrl + 'labels');
+    getLabels(tenantid): Observable<any> {
+        debugger;
+        let url = this.baseUrlDoc + 'labels';
+        if (tenantid !== null && tenantid !== undefined && tenantid !== '')
+            url = url + '?tenantId=' + tenantid;
+        return this.http.get<DocLabel[]>(url);
     }
 
     saveValidation(data: DocClassificationChangeSaveInfo): Observable<any> {
-        return this.http.post<any>(this.baseUrl + "document-changes", data, { responseType: 'json' });
+        return this.http.post<any>(this.baseUrlDoc + "document-changes", data, { responseType: 'json' });
     }
 
     userReviewDone(): Observable<any> {
-        return this.http.get<any>(this.baseUrl + "document-review-complete");
+        return this.http.get<any>(this.baseUrlDoc + "document-review-complete");
     }
 }
 

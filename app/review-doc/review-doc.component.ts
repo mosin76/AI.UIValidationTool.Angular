@@ -57,8 +57,9 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         this.init();
         this.route.queryParams.subscribe(params => {
             this.groupId = params['groupId'];
-
-            this.getLabels();
+            debugger;
+            var tenantId: string = this.isTenantUser ? null : this.tenant.id;
+            this.getLabels('ac342345-bbb8-4e8c-2c97-3a1353eb9c23');
             if (this.utils.pageTrackingData == 1) {
                 this.getNextDocument(null);
                 this.utils.pageTrackingData = this.utils.pageTrackingData + 1
@@ -274,8 +275,9 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         return this.labels[labelIndex]?.name || '';
     }
 
-    getLabels() {
-        this.reviewService.getLabels().subscribe(data => {
+    getLabels(tenantId) {
+
+        this.reviewService.getLabels(tenantId).subscribe(data => {
             this.labels = data;
             if (this.currentDocument != null) {
                 //TODO: this.currentDocument.classifications.forEach(u => u.helpText = this.labels.find(l => l.id == u.labelId).helpText);
