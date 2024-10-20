@@ -1,0 +1,280 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 1200px; /* You can adjust the max-width as needed */
+    padding: 0px;
+}
+
+/* Header styling */
+.header {
+    
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.headerimagecontainer {
+    position: relative;
+    width: 100%;
+    height: 40px; 
+    background-color:rgba(236,236,236,0.8); 
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 10px;
+}
+
+/* Common button styles */
+.headerimagecontainer button {
+    background: none; 
+    border: none; 
+    color: black;
+    font-size: 24px; 
+    cursor: pointer; 
+    outline: none; 
+    display: inline-block;
+    position: absolute;
+}
+
+/* Zoom controls */
+.Zoominbutton {
+    position: absolute;
+    display: inline;
+    top: 0px; 
+    right: 10px; 
+    z-index: 10;
+}
+
+.Zoomoutbutton {
+    position: absolute;
+    display: inline;
+    top: 0px; 
+    right: 40px; 
+    z-index: 10;
+}
+
+/* Rotate controls */
+.rotateleftbutton {
+    position: absolute;
+    display: inline;
+    top: 0px;
+    left: 10px; 
+    z-index: 10;
+    
+}
+
+.rotaterightbutton {
+    position: absolute;
+    display: inline;
+    top: 0px;
+    left: 40px; 
+    z-index: 10;
+    
+}
+
+/* Reset button */
+.reseter {
+    position: absolute;
+    display: inline;
+    align-self: center;
+    top: 0px;
+    left: 45%;
+    right:55%; 
+    z-index: 10;
+   
+}
+
+  
+ 
+.displayzoom{
+    position: absolute;
+    top: 10px;
+    right:25% px;
+    left:70%;
+    z-index: 10;
+    font-size: 16px;
+}
+/* Adjust icon size */
+.headerimagecontainer i {
+    font-size: 17px; 
+}
+.horizontal-slider-container{
+    position:absolute;
+    bottom: 0;
+    left: 0; 
+    width: 100%;
+    height: 20px;
+    background-color: rgba(236,236,236,0.8);
+    z-index: 10;  
+}
+.horizontal-slider{
+    width: 100%;
+    height: 100%;
+    margin: 0;  
+}
+/* Content section styling */
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 0px;
+}
+
+.image-container {
+    position: relative;
+    width:100%;
+    min-height: 725px;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    background: #ccc;
+    
+    
+    
+}
+
+.image-container img {
+   
+    overflow: hidden;
+    width:calc(100% - 15px);
+   // height: auto;
+    display:flex;
+}
+.image-container-int{
+    position: relative;
+    width:100%;
+    height:auto;
+}
+.vertical-slider {
+    position: absolute;
+    top: 0px;
+    
+    right: 10px; /* Positions the slider within the 20px margin */ 
+    width: 95vh;
+    transform: rotate(270deg); /* Rotate to make it vertical */
+    transform-origin: right center; /* Adjust origin to align properly */
+    z-index: 10;
+    background-color: white;
+}
+/* Form container styling */
+.form-container {
+    flex: 1;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .image-container,
+    .form-container {
+        margin: 0;
+    }
+
+    .image-container {
+        margin-bottom: 20px;
+    }
+}
+
+/* Additional responsive rules for landscape images */
+@media (orientation: landscape) and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .image-container {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+}
+
+.float-end {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.table {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.table.borderless td,
+.table.borderless th {
+    border: none;
+}
+
+.table .key {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-right: 1rem;
+    text-align: right; 
+    min-width: 200px;
+    vertical-align: top;
+}
+
+.table .value {
+    font-size: 1.1rem;
+    padding-left: 1rem;
+    text-align: left; 
+}
+
+.classification-item {
+    padding: 1px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.custom-label-popup {
+    margin-top: 10px;
+}
+
+.custom-label-popup .form-control {
+    margin-bottom: 5px;
+}
+
+.btn-lg {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.thumb-dirty-add.thumb-icons {
+    color: green !important;
+    padding: 2px;
+}
+
+.thumb-dirty-remove.thumb-icons {
+    color: red !important;
+    padding: 2px;
+}
+
+.thumb-dirty-none, .thumb-icons {
+    color: lightgray !important;
+    padding: 2px !important;
+}
+
+.text-dirty-add {
+    color: green !important;
+    font-weight: 700;
+}
+
+.btn-xs {
+    margin-left: 5px !important;
+    font-size: 10px !important;
+    --bs-btn-padding-x: 5px !important;
+    --bs-btn-padding-y: 0px !important;
+}
+
+.section-separator {
+    border: none;
+    border-top: 2px solid #808080;
+    margin: 10px 0;
+}

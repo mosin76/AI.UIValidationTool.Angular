@@ -1,0 +1,51 @@
+<div class="container">
+    <p *ngIf="!isTenantUser" class="float-end">
+        You are viewing <strong>{{tenant.name}}</strong> data.
+        <a [routerLink]="['']">Click here to change</a>
+    </p>
+    <div class="p-5 text-center">
+        <h1>Review Images and Documents (DPTA)</h1>
+        <div *ngIf="loading; else table">
+            <img src="../../assets/images/logo/loading.gif" alt="">
+            <div class="loading">Loading...</div>
+        </div>
+        <ng-template #table>
+            <p class="lead px-lg-5 mx-lg-5" *ngIf="!tenant.name; else DataTable">
+                No tenant selected. <br>
+                Select the tenant from <a [routerLink]="['']">here</a>
+            </p>
+        </ng-template>
+        <ng-template #DataTable>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Case</th>
+                        <th>#of Document(s)</th>
+                        <th>#of Image(s) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!loading && (!groups || groups.length === 0)">
+                        <td colspan="2" class="text-center">No Document(s) / Image(s) to review</td>
+                    </tr>
+                    <!-- Loop over both groups and Pictures -->
+                    <tr *ngFor="let group of groups">
+                        <td>{{ group.name }}</td>
+                        <td>
+                            <button *ngIf="group.numOfDocs > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="docBaseUrl" [queryParams]="{ groupId: group.name }">
+                                Review {{ group.numOfDocs }}
+                            </button>
+                        </td>
+                        <td>
+                            <button *ngIf="group.numOfImages > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="imgBaseUrl" [queryParams]="{ groupId: group.name }">
+                                Review {{ group.numOfImages }}
+                            </button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+name: Azure Static Web Apps CI/CD
+
+pr:
+  branches:
+    include:
+      - qa
+trigger:
+  branches:
+    include:
+      - qa
+
+jobs:
+- job: build_and_deploy_job
+  displayName: Build and Deploy Job
+  condition: or(eq(variables['Build.Reason'], 'Manual'),or(eq(variables['Build.Reason'], 'PullRequest'),eq(variables['Build.Reason'], 'IndividualCI')))
+  pool:
+    vmImage: ubuntu-latest
+  variables:
+  - group: Azure-Static-Web-Apps-blue-tree-0ab06dd0f-variable-group
+  steps:
+  - checkout: self
+    submodules: true
+
+  - script: |
+      curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    displayName: 'Install Node.js'
+
+  - script: yarn install --prefer-offline
+    displayName: Install dependencies
+
+  - script: npm run build:qa
+    displayName: Build Angular app
+
+
+  - script: |
+      mkdir -p dist/ValidationApp
+      cp staticwebapp.config.json dist/ValidationApp/
+    displayName: Copy staticwebapp.config.json to output directory
+
+  - script: ls -R
+    displayName: List directory contents
+    
+  - task: AzureStaticWebApp@0
+    env:
+      NODE_VERSION: 20.9.0
+    inputs:
+      azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_TREE_0AB06DD0F)
+      app_build_command: 'npm run build' # Custom build command to use the correct Node.js version
+      app_location: "dist/ValidationApp" # App source code path
+      api_location: "" # Api source code path - optional
+      output_location: "dist/ValidationApp" # Built app content directory - optional
+###### End of Repository/Build Configurations ######
