@@ -50,7 +50,7 @@ export class ReviewUpdateComponent extends AutoSquaredBaseComponent implements O
 
     ngOnInit() {
         this.init();
-
+        alert("mohsin")
         this.route.queryParams.subscribe(params => {
             this.eventTypeId = params['eventTypeId'];
         

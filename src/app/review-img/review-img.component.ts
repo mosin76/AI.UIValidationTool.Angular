@@ -393,14 +393,14 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
         const approvedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === 1).map(x => x.id);
         const rejectedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === -1).map(x => x.id);
         const userChosenLabelIds = this.currentDocument.userChosenLabelIds;
-
         return {
             documentId: this.currentDocument.id,
             approvedAIDocLabelIds,
             rejectedAIDocLabelIds,
             userChosenLabelIds,
             proposedLabels: this.proposedLabels,
-            tenantId: this.tenant.id
+            tenantId: this.tenant.id,
+            caseId:this.groupId
         };
     }
     // Retrieves available label name from the service.

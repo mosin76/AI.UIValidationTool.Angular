@@ -59,7 +59,6 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         this.route.queryParams.subscribe(params => {
             this.groupId = params['groupId'];
             var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
-            debugger
             this.getLabels(tenantId);
             if (this.utils.pageTrackingData == 1) {
                 this.getNextDocument(null);
@@ -163,7 +162,6 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         this.loading = true;
         var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
         var currentDocId: number = this.currentDocument == null ? -1 : this.currentDocument.id;
-
         this.reviewService.getNextDocumentInfo(tenantId, this.groupId, currentDocId).subscribe(data => {
             this.handleDocumentResponse(data);
             this.loading = false;
@@ -286,6 +284,7 @@ previous() {
             userChosenLabelIds,
             proposedLabels: this.proposedLabels,
             tenantId:this.tenant.id,
+            caseId:this.groupId
         };
     }
 // Retrieves available label name from the service.
@@ -338,14 +337,14 @@ getLabels(tenantId) {
     }
 
     ngOnDestroy(): void {
-        this.reviewService
-            .userReviewDone()
-            .subscribe(
-                error => {
-                    console.log(error)
-                });
-        if (!this.router.url.includes('/review-doc'))
-            this.utils.pageTrackingData = 1;
+        // this.reviewService
+        //     .userReviewDone()
+        //     .subscribe(
+        //         error => {
+        //             console.log(error)
+        //         });
+        // if (!this.router.url.includes('/review-doc'))
+        //     this.utils.pageTrackingData = 1;
     }
     
 }

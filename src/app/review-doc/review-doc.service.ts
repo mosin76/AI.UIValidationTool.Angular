@@ -34,12 +34,11 @@ export class ReviewDocService {
 
     getDocumentInfo(tenantid, docId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'document-by-id';
-   //debugger;
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid + "&docId=" + docId;
 
         return this.http.get<Response<DocumentInfoResponse>>(url);
-        //debugger;
+       
     }
 
     getLabels(tenantid): Observable<any> {
@@ -96,5 +95,6 @@ export interface DocClassificationChangeSaveInfo {
   userChosenLabelIds: number[];
   proposedLabels: string;
   tenantId : string;
+  caseId:number;
 
 }

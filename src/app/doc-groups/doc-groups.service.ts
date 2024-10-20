@@ -8,8 +8,8 @@ import { identifierName } from '@angular/compiler';
     providedIn: 'root'
 })
 export class DocumentGroupsApiService {
-    private docbaseUrl = environment.apis.default.url + '/api/document/';
-    private imgbaseurl = environment.apis.default.url +'/api/picture/';
+    private docbaseUrl = environment.apis.default.url + '/api/documents/';
+    private imgbaseurl = environment.apis.default.url +'/api/pictures/';
     //private docbaseUrl = environment.apis.default.url + '/api/review-docs/';
     constructor(private http: HttpClient) { }
 

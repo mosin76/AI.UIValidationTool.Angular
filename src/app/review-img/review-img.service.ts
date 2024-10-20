@@ -14,7 +14,7 @@ export class ReviewImgService {
 
 
     getDownloadUrl(tenantId, documentId): string {
-        var url = this.baseUrlDoc + 'picture-download?picId=' + documentId;
+        var url = this.baseUrlDoc + 'picture-download?documentId=' + documentId;
         if (tenantId !== null && tenantId !== undefined && tenantId !== '')
             url = url + '&tenantId=' + tenantId;
 
@@ -23,7 +23,6 @@ export class ReviewImgService {
 
     getNextPicInfo(tenantid, caseId, curPicId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'picture-next';
-          //debugger
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid + '&caseId=' + caseId + "&curPicId=" + (curPicId === null ? 0 : curPicId);
 
@@ -32,7 +31,6 @@ export class ReviewImgService {
 
     getPicInfo(tenantid, picId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'picture-by-id';
-   //debugger;
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid + "&picId=" + picId;
 
@@ -47,7 +45,7 @@ export class ReviewImgService {
     }
 
     saveValidation(data: DocClassificationChangeSaveInfo): Observable<any> {
-        return this.http.post<any>(this.baseUrlDoc + "document-changes", data, { responseType: 'json' });
+        return this.http.post<any>(this.baseUrlDoc + "picture-changes", data, { responseType: 'json' });
     }
 
     userReviewDone(): Observable<any> {
@@ -92,5 +90,6 @@ export interface DocClassificationChangeSaveInfo {
     userChosenLabelIds: number[];
     proposedLabels: string;
     tenantId : string;
+    caseId : number;
 }
 
