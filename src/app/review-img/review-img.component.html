@@ -151,7 +151,7 @@
                     </div>
 
                     <hr class="section-separator">
-                    <h3>Possible Damage(s)</h3>
+                    <!-- <h3>Possible Damage(s)</h3>
                     <div *ngFor="let damage of currentDocument.damages" class="classification-item">
                         <span *ngIf="!damage.userChosen">
                             {{damage.name}}
@@ -200,8 +200,8 @@
                                (click)="click$.next($any($event).target.value)"
                                #instance="ngbTypeahead"
                                placeholder="Search for damage..." />
-                    </div>
-                    <div>
+                    </div> -->
+                    <!-- <div>
                         <button class="btn btn-link pt-1" (click)="openCustomDamagePopup()">
                             {{ proposedDamages && proposedDamages.length > 0 ? 'Edit Proposed Damage : ' : 'Add Proposed Damage' }}
                         </button>
@@ -220,7 +220,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr class="section-separator">
             <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="previous()" [disabled]="!canMovePrevious()">Previous</button>
