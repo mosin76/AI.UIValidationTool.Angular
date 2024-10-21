@@ -273,8 +273,9 @@ previous() {
 
 // Prepares the document's review state information for saving.
     getUpdateSaveInfo(): DocClassificationChangeSaveInfo {
-        const approvedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === 1).map(x => x.id);
-        const rejectedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === -1).map(x => x.id);
+        debugger;
+        const approvedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === 1).map(x => x.labelId);
+        const rejectedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === -1).map(x => x.labelId);
         const userChosenLabelIds = this.currentDocument.userChosenLabelIds;
 
         return {
