@@ -192,7 +192,7 @@ previous() {
     if (this.skippedDocumentIds.length === 0) {
         return;
     }
-    debugger;
+  
     const prevDocId = this.skippedDocumentIds.pop();
     
     // Check if prevDocId is defined
@@ -205,7 +205,7 @@ previous() {
 
 // Skips the current document and moves to the next one.
     skip() {
-        debugger;
+        
         this.skippedDocumentIds.push(this.currentDocument.id);
 
         this.getNextDocument(this.currentDocument.id);
@@ -274,7 +274,6 @@ previous() {
 
 // Prepares the document's review state information for saving.
     getUpdateSaveInfo(): DocClassificationChangeSaveInfo {
-        debugger;
         const approvedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === 1).map(x => x.labelId);
         const rejectedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === -1).map(x => x.labelId);
         const userChosenLabelIds = this.currentDocument.userChosenLabelIds;
