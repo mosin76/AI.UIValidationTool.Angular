@@ -32,10 +32,10 @@ export class ReviewDocService {
         return this.http.get<Response<DocumentInfoResponse>>(url);
     }
 
-    getDocumentInfo(tenantid, docId): Observable<Response<DocumentInfoResponse>> {
+    getDocumentInfo(tenantid, docId,caseId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'document-by-id';
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
-            url = url + '?tenantId=' + tenantid + "&docId=" + docId;
+            url = url + '?tenantId=' + tenantid + "&docId=" + docId +"&caseId=" +caseId;
 
         return this.http.get<Response<DocumentInfoResponse>>(url);
        

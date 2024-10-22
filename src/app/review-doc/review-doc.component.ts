@@ -151,8 +151,8 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
     getDocumentById(docId: number | null) {
         this.loading = true;
         var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
-
-        this.reviewService.getDocumentInfo(tenantId, docId).subscribe(data => {
+        var caseId=this.groupId;
+        this.reviewService.getDocumentInfo(tenantId, docId,caseId).subscribe(data => {
             this.handleDocumentResponse(data);
             this.loading = false;
         });
@@ -192,7 +192,7 @@ previous() {
     if (this.skippedDocumentIds.length === 0) {
         return;
     }
-
+    debugger;
     const prevDocId = this.skippedDocumentIds.pop();
     
     // Check if prevDocId is defined
