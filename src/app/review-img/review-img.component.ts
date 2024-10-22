@@ -267,8 +267,8 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
     getPicById(docId: number | null) {
         this.loading = true;
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
-
-        this.reviewService.getPicInfo(tenantId, docId).subscribe(data => {
+        var caseId=this.groupId;
+        this.reviewService.getPicInfo(tenantId, docId,caseId).subscribe(data => {
             this.handleDocumentResponse(data);
             this.loading = false;
         });
@@ -306,6 +306,7 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
     }
     //Moves to the previous skipped document.
     previous() {
+        debugger;
         if (this.skippedDocumentIds.length === 0) {
             return;
         }
@@ -322,6 +323,7 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
 
     // Skips the current document and moves to the next one.
     skip() {
+        debugger;
         this.skippedDocumentIds.push(this.currentDocument.id);
 
         this.getNextPic(this.currentDocument.id);
@@ -343,7 +345,7 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
 
             //if anything skipped, give option to the user to move to next skipped document
             const isLast = this.totalCount - this.skippedDocumentIds.length === 1;
-
+            debugger;
             if (!isLast) {
                 if (this.skippedDocumentIds.length > 0) {
                     var lastSkipperDocId = this.skippedDocumentIds[this.skippedDocumentIds.length - 1];

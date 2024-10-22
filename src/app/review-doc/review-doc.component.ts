@@ -205,6 +205,7 @@ previous() {
 
 // Skips the current document and moves to the next one.
     skip() {
+        debugger;
         this.skippedDocumentIds.push(this.currentDocument.id);
 
         this.getNextDocument(this.currentDocument.id);

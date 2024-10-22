@@ -29,10 +29,10 @@ export class ReviewImgService {
         return this.http.get<Response<DocumentInfoResponse>>(url);
     }
 
-    getPicInfo(tenantid, picId): Observable<Response<DocumentInfoResponse>> {
+    getPicInfo(tenantid, picId,caseId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'picture-by-id';
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
-            url = url + '?tenantId=' + tenantid + "&picId=" + picId;
+            url = url + '?tenantId=' + tenantid + "&picId=" + picId +"&caseId=" +caseId;
 
         return this.http.get<Response<DocumentInfoResponse>>(url);
     }
@@ -45,6 +45,7 @@ export class ReviewImgService {
     }
 
     saveValidation(data: DocClassificationChangeSaveInfo): Observable<any> {
+
         return this.http.post<any>(this.baseUrlDoc + "picture-changes", data, { responseType: 'json' });
     }
 
