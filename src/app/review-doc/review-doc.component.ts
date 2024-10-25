@@ -338,14 +338,14 @@ getLabels(tenantId) {
     }
 
     ngOnDestroy(): void {
-        // this.reviewService
-        //     .userReviewDone()
-        //     .subscribe(
-        //         error => {
-        //             console.log(error)
-        //         });
-        // if (!this.router.url.includes('/review-doc'))
-        //     this.utils.pageTrackingData = 1;
+         this.reviewService
+             .userReviewDone()
+             .subscribe(
+                 error => {
+                     console.log(error)
+                 });
+         if (!this.router.url.includes('/review-docs'))
+             this.utils.pageTrackingData = 1;
     }
     
 }
