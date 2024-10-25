@@ -36,11 +36,13 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
         if (g === undefined) {
             // Add a new one
             g = new DptaGroup();
+            
             g.name = name;
             g.numOfDocs = 0;
             g.numOfImages = 0;
-
+            debugger;
             this.groups.push(g);
+            this.groups.sort((a, b) => { return a.name.localeCompare(b.name) });
         }
         return g;
     }

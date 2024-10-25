@@ -4,7 +4,7 @@
         <a [routerLink]="['']">Click here to change</a>
     </p>
     <div class="p-5 text-center">
-        <h1>Review Images and Documents (DPTA)</h1>
+        <h1>Review Documents and Pictures (DPTA)</h1>
         <div *ngIf="loading; else table">
             <img src="../../assets/images/logo/loading.gif" alt="">
             <div class="loading">Loading...</div>
@@ -35,11 +35,13 @@
                             <button *ngIf="group.numOfDocs > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="docBaseUrl" [queryParams]="{ groupId: group.name }">
                                 Review {{ group.numOfDocs }}
                             </button>
+                            <div *ngIf="group.numOfDocs == 0"> No documents</div>
                         </td>
                         <td>
                             <button *ngIf="group.numOfImages > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="imgBaseUrl" [queryParams]="{ groupId: group.name }">
                                 Review {{ group.numOfImages }}
                             </button>
+                            <div *ngIf="group.numOfImages == 0"> No pictures</div>
                         </td>
                     </tr>
 
