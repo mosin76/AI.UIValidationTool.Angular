@@ -12,9 +12,12 @@ export class ReviewDocService {
     private baseUrlDoc = environment.apis.default.url + '/api/documents/';
     constructor(private http: HttpClient) { }
 
-    //downloadDocument(documentId): Observable<any> {
-    //    return this.http.get(this.baseUrlDoc + 'document-download/' + documentId, { responseType: 'blob' });
-    //}
+    downloadDocumentMime(tenantId,documentId): Observable<any> {
+        let url = this.baseUrlDoc + 'document-mimetype?documentId=' + documentId;
+        if (tenantId !== null && tenantId !== undefined && tenantId !== '')
+            url = url + '&tenantId=' + tenantId;
+       return this.http.get<DocFileExt>(url);
+    }
 
     getDownloadUrl(tenantId, documentId): string {
         let url = this.baseUrlDoc + 'document-download?documentId=' + documentId;
@@ -56,12 +59,24 @@ export class ReviewDocService {
     userReviewDone(): Observable<any> {
         return this.http.get<any>(this.baseUrlDoc + "document-review-complete");
     }
+    isImageDoc(imageextension)
+    {
+        if(imageextension=='png' || imageextension=='jpg' || imageextension=='jpeg')
+            return true;
+        else
+            return false;
+    }
 }
 
 export interface DocLabel {
     id: number;
     name: string;
     helpText: string;
+}
+export interface DocFileExt {
+    extension: number;
+    mimeType: string;
+    docName: string;
 }
 
 export interface DocClassification {
