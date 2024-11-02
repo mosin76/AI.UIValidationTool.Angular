@@ -16,6 +16,7 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
     groups: DptaGroup[] = [];
     imgBaseUrl: string = '/review-img';
     docBaseUrl: string = '/review-doc';
+    assetsbaseurl: string = '/review-asset';
 
     constructor(private reviewService: DocumentGroupsApiService,
         utils: UtilsService,
@@ -40,7 +41,7 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
             g.name = name;
             g.numOfDocs = 0;
             g.numOfImages = 0;
-            debugger;
+           
             this.groups.push(g);
             this.groups.sort((a, b) => { return a.name.localeCompare(b.name) });
         }
@@ -72,6 +73,15 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
 
             this.loading = false;
         });
+        
+        this.reviewService.getAssets(tenantId).subscribe(data => {
+            //add the data to groups variable
+            data.forEach(d => {
+                var g = this.getGroup(d.name);
+                g.numOfAssets = d.itemCount;
+            });
 
+            this.loading = false;
+        });
     }
 }

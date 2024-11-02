@@ -75,6 +75,11 @@ const routes: Routes = [
         path: 'review-doc',
         loadChildren: () => import('./review-doc/review-doc.module').then(m => m.ReviewDocModule),
         canActivate: [authGuard]
+    },
+    {
+        path: 'review-asset',
+        loadChildren: () => import('./review-asset/review-asset.module').then(m => m.ReviewAssetModule),
+        canActivate: [authGuard]
     }
 ];
 

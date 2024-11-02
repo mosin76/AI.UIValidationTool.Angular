@@ -10,6 +10,7 @@ import { identifierName } from '@angular/compiler';
 export class DocumentGroupsApiService {
     private docbaseUrl = environment.apis.default.url + '/api/documents/';
     private imgbaseurl = environment.apis.default.url +'/api/pictures/';
+    private assetsbaseurl = environment.apis.default.url +'/api/assets/';
     //private docbaseUrl = environment.apis.default.url + '/api/review-docs/';
     constructor(private http: HttpClient) { }
 
@@ -22,6 +23,13 @@ export class DocumentGroupsApiService {
     }
     getPictures(tenantid): Observable<any[]> {
         let url = this.imgbaseurl + 'groups';
+        if (tenantid !== null && tenantid !== undefined && tenantid !== '')
+            url = url + '?tenantId=' + tenantid;
+
+        return this.http.get<any[]>(url);
+    }
+    getAssets(tenantid): Observable<any[]> {
+        let url = this.assetsbaseurl + 'groups';
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
             url = url + '?tenantId=' + tenantid;
 
@@ -42,5 +50,6 @@ export class DptaGroup {
     name: string;
     numOfDocs: number;
     numOfImages: number;
+    numOfAssets: number;
 }
 
