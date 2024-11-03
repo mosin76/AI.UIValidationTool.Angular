@@ -53,7 +53,7 @@
             
             <div>
                 <hr class="section-separator">
-                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px">Save</button>
+                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" >Save</button>
             </div>
 
         </div>
@@ -62,8 +62,11 @@
             <div class="image-grid">
                 <div class="image-box" *ngFor="let imageUrl of Assetsimages; let i = index" (click)="toggleZoom(i +1)"
                 [class.zoomed]="zoomedImageIndex === i+1">
-                  <img [src]="getDownloadUrl(imageUrl.id)" alt="Asset Image">
-                  <p>Image {{ i + 1 }}</p>
+                  <img 
+                  [src]="" 
+                  (error)="imageLoadFailed($event)"
+                   >
+                  <p>{{ imageUrl.name }}</p>
                 </div>
               </div>
         </div>

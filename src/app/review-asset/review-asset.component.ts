@@ -6,7 +6,7 @@ import { UtilsService ,Response} from '../shared/utils.service';
 import { AuthService } from '@abp/ng.core';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 import { NgbTypeaheadSelectItemEvent, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-import {  AssetInfoInfoResponse, AssetsInfo, DocClassificationChangeSaveInfo, DocLabel, ReviewAssetService } from './review-asset.service';
+import {  AssetInfoInfoResponse, Assetsimages, AssetsInfo, DocClassificationChangeSaveInfo, DocLabel, ReviewAssetService } from './review-asset.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -132,7 +132,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     this.reviewService.getAsset(tenantId, this.groupId).subscribe(data => {
-        debugger;
         this.handleAssetResponse(data);
         this.loading = false;
     });
@@ -142,18 +141,16 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
-        debugger;
-
-        this.Assetsimages=data
-        //this.handleAssetResponse(data);
-        //this.loading = false;
+        
+        this.Assetsimages=data;
+        
     });
     
   }
   
   // This function is approving the predicted labels.
   approve(docLabelId: number) {
-    debugger;
+   
     const classification = this.currentDocument.classifications.find(x => x.labelId === docLabelId);
     if (classification) {
         classification.userReviewState = 1;
@@ -177,10 +174,65 @@ reject(docLabelId: number) {
     return this.labels.find(x => x.id === labelId)?.helpText;
 }
 getDownloadUrl(pictureid) {
-  debugger;
   this.loading = true;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     return this.reviewService.getimageDownloadUrl(tenantId,pictureid )
+}
+// Prepares the document's review state information for saving.
+getUpdateSaveInfo(): DocClassificationChangeSaveInfo {
+  
+  const approvedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === 1).map(x => x.labelId);
+  const rejectedAIDocLabelIds = this.currentDocument.classifications.filter(x => x.userReviewState === -1).map(x => x.labelId);
+  const userChosenLabelIds = [];
+
+  return {
+      documentId: this.currentDocument.id,
+      approvedAIDocLabelIds,
+      rejectedAIDocLabelIds,
+      userChosenLabelIds,
+      proposedLabels: this.proposedLabels,
+      tenantId:this.tenant.id,
+      caseId:this.groupId
+  };
+}
+// Saves the review of the current document and handles the post-save logic.
+saveUpdateReview() {
+  this.saving = true;
+  const saveData = this.getUpdateSaveInfo();
+  
+  this.reviewService.saveValidation(saveData).subscribe(data => {
+      this.saving = false;
+      if (!data.success) {
+          this.toastr.error(data.message);
+          console.log(data.message);
+          return;
+      }
+
+      this.toastr.success(data.message);
+
+      //if anything skipped, give option to the user to move to next skipped document
+      const isLast = this.totalCount - this.skippedDocumentIds.length === 1;
+                     
+  }).add(() => {
+      this.saving = false;
+  });
+}
+// Handles errors when an image fails to load.
+imageLoadFailed(error: Event) {
+ 
+  console.error('Image load failed:', error, ' URL', this.downloadUrl);
+  this.fileLoadingError = error.toString();
+  //this.currentDocument.type = 'E';
+}
+ngOnDestroy(): void {
+  this.reviewService
+      .userReviewDone()
+      .subscribe(
+          error => {
+              console.log(error)
+          });
+  if (!this.router.url.includes('/review-asset'))
+      this.utils.pageTrackingData = 1;
 }
 }

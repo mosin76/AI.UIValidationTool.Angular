@@ -50,7 +50,7 @@ export class ReviewAssetService {
     }
 
     saveValidation(data: DocClassificationChangeSaveInfo): Observable<any> {
-        return this.http.post<any>(this.baseUrlDoc + "document-changes", data, { responseType: 'json' });
+        return this.http.post<any>(this.baseUrlDoc + "assets-changes", data, { responseType: 'json' });
         
     }
 
@@ -80,6 +80,7 @@ export class ReviewAssetService {
 
         return url;
     }
+   
 }
 
 export interface DocLabel {
@@ -132,4 +133,5 @@ export interface Assetsimages{
     caseId:number;
     customerId:string;
     hash:string;
+    source:string;
 }
