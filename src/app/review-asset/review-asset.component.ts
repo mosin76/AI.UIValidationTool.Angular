@@ -150,7 +150,7 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   
   // This function is approving the predicted labels.
   approve(docLabelId: number) {
-   
+  
     const classification = this.currentDocument.classifications.find(x => x.labelId === docLabelId);
     if (classification) {
         classification.userReviewState = 1;
@@ -170,7 +170,7 @@ reject(docLabelId: number) {
   getLabelHelpText(labelId) {
     if (this.labels === null)
         return null;
-debugger;
+
     return this.labels.find(x => x.id === labelId)?.helpText;
 }
 getDownloadUrl(pictureid) {
@@ -210,7 +210,7 @@ saveUpdateReview() {
       }
 
       this.toastr.success(data.message);
-
+      this.router.navigate(['/doc-groups']);
       //if anything skipped, give option to the user to move to next skipped document
       const isLast = this.totalCount - this.skippedDocumentIds.length === 1;
                      
