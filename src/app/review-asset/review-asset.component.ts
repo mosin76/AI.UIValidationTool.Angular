@@ -170,7 +170,7 @@ reject(docLabelId: number) {
   getLabelHelpText(labelId) {
     if (this.labels === null)
         return null;
-
+debugger;
     return this.labels.find(x => x.id === labelId)?.helpText;
 }
 getDownloadUrl(pictureid) {

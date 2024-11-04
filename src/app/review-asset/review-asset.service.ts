@@ -74,7 +74,7 @@ export class ReviewAssetService {
        
     }
     getimageDownloadUrl(tenantId, documentId): string {
-        var url = this.baseUrlpic + 'picture-download?documentId=' + documentId;
+        var url = this.baseUrlDoc + 'assetsimgs-download?documentId=' + documentId;
         if (tenantId !== null && tenantId !== undefined && tenantId !== '')
             url = url + '&tenantId=' + tenantId;
 
