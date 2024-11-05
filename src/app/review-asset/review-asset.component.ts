@@ -37,12 +37,7 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
   currentUpdate: any;
-  imageUrls: string[] = [
-    'https://images.unsplash.com/photo-1504215680853-026ed2a45def',
-    'https://images.unsplash.com/photo-1504215680853-026ed2a45def',
-    'https://images.unsplash.com/photo-1504215680853-026ed2a45def',
-    'https://images.unsplash.com/photo-1504215680853-026ed2a45def',
-  ];
+ 
   constructor(
     private route: ActivatedRoute,
     private reviewService: ReviewAssetService,
@@ -68,6 +63,11 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         }
     });
   }
+  ngAfterViewInit() {
+    // this.updateImageDimensions();
+    // this.updateTransform();
+    // this.calculateMaxPositions();
+}
   getLabelName(labelId) {
     let labelIndex = this.labels.findIndex(x => x.id === labelId);
     return this.labels[labelIndex]?.name || '';
@@ -174,10 +174,11 @@ reject(docLabelId: number) {
     return this.labels.find(x => x.id === labelId)?.helpText;
 }
 getDownloadUrl(pictureid) {
-  this.loading = true;
+  //this.loading = true;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     return this.reviewService.getimageDownloadUrl(tenantId,pictureid )
+    //this.loading = true;
 }
 // Prepares the document's review state information for saving.
 getUpdateSaveInfo(): DocClassificationChangeSaveInfo {

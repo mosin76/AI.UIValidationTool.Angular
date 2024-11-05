@@ -63,7 +63,7 @@
                 <div class="image-box" *ngFor="let imageUrl of Assetsimages; let i = index" (click)="toggleZoom(i +1)"
                 [class.zoomed]="zoomedImageIndex === i+1">
                   <img  
-                  
+                  [src]="getDownloadUrl(imageUrl.id)"
                   (error)="imageLoadFailed($event)"
                    >
                   <!-- <p>{{ imageUrl.name }}</p> -->
