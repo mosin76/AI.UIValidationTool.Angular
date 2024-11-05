@@ -15,9 +15,10 @@
             <h1>Document(s) Needing Review</h1>
             <h4>Number of Document(s): {{totalCount}}</h4>
             <span *ngIf="currentDocument === null">Nothing to review.</span>
+           
         </div>
         <div class="content" *ngIf="currentDocument">
-            <div class="image-container" *ngIf="!isImage">
+            <div class="image-container" *ngIf="isImage=='pdf'">
                 <ng-container>
                     <div style="width:100%; height:100vh">
                         <ngx-extended-pdf-viewer [src]="downloadUrl"
@@ -33,24 +34,12 @@
                                                  (pdfLoadingFailed)="pdfLoadFailed($event)"
                                                  [needsES5]="true">
                         </ngx-extended-pdf-viewer>
-                        <ngx-extended-pdf-viewer [src]="downloadUrl"
-                                                 [enablePrint]="false"
-                                                 [showOpenFileButton]="false"
-                                                 [showPresentationModeButton]="true"
-                                                 [showStampEditor]="false"
-                                                 [showDrawEditor]="false"
-                                                 [showTextEditor]="false"
-                                                 [showHighlightEditor]="false"
-                                                 [showPropertiesButton]="false"
-                                                 (progress)="pdfLoadProgressCallback($event)"
-                                                 (pdfLoadingFailed)="pdfLoadFailed($event)"
-                                                 [needsES5]="true">
-                        </ngx-extended-pdf-viewer>
+                       
                     </div>
                 </ng-container>
 
             </div>
-            <div class="image-container" *ngIf="isImage" >
+            <div class="image-container" *ngIf="isImage=='image'" >
                 <div class="image-container-int">
                     <div class="headerimagecontainer">
                         <!-- Zoom controls -->
@@ -98,6 +87,13 @@
                                    (input)="onSliderChange($event)"
                                    class="horizontal-slider">
                         </footer>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container" *ngIf="isImage=='doc'" >
+                <div class="image-container-int">
+                    <div class="headerimagecontainer">
+                        <button (click)="downloadDocument()">Download Document</button>
                     </div>
                 </div>
             </div>

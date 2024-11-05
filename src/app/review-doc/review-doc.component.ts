@@ -31,7 +31,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
     totalCount: number;
     skippedDocumentIds: number[] = [];
     downloadUrl: string | null = null;
-    isImage: boolean;
+    isImage: string;
     pdfDownloadProgress: number = 0;
     groupId: number;
     fileLoadingError: string;
@@ -142,7 +142,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         if (response.data === null || response.data.currentDocument === null) {
             this.totalCount = 0;
             this.downloadUrl = null;
-            this.isImage=null;
+            //this.isImage=null;
             
         }
         else {
@@ -457,6 +457,11 @@ getLabels(tenantId) {
 
     calculatePositionYFromSlider(sliderValue: number): number {
         return (sliderValue - 50) / 50 * this.maxPositionY;
+    }
+    downloadDocument(){
+        var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
+        var currentDocId: number = this.currentDocument.id;
+        this.reviewService.getDownloadDocDownload(tenantId,currentDocId);
     }
     ngOnDestroy(): void {
          this.reviewService

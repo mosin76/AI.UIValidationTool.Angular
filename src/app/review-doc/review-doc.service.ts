@@ -26,7 +26,12 @@ export class ReviewDocService {
 
         return url;
     }
-
+    getDownloadDocDownload(tenantId, documentId){
+        let url = this.baseUrlDoc + 'document-download?documentId=' + documentId;
+        if (tenantId !== null && tenantId !== undefined && tenantId !== '')
+            url = url + '&tenantId=' + tenantId +'&t='+15;
+        this.http.get(url);
+    }
     getNextDocumentInfo(tenantid, caseId, curDocId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'document-next';
         if (tenantid !== null && tenantid !== undefined && tenantid !== '')
@@ -62,9 +67,11 @@ export class ReviewDocService {
     isImageDoc(imageextension)
     {
         if(imageextension=='png' || imageextension=='jpg' || imageextension=='jpeg')
-            return true;
+            return "image";
+        else if(imageextension=='pdf')
+            return  "pdf";
         else
-            return false;
+            return "doc";
     }
 }
 
