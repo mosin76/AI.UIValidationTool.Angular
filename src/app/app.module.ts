@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { LabelMenuComponent } from './label-menu/label-menu.component';
 import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ConfirmationDialogService } from './confirmation-dialog/confirmation-di
         MatMenuModule,
         LabelMenuComponent,
         MatButtonModule,
+        NgImageSliderModule,
         CoreModule.forRoot({
             environment,
             registerLocaleFn: registerLocale(),

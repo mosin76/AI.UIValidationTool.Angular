@@ -31,6 +31,9 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   groupId: number;
   Assetsimages:any;
   fileLoadingError: string;
+  imageObjectmox: Array<object>=[{}];
+  imageElement: any;
+  imageScale: any;
  
   @ViewChild('instance', { static: false }) typeaheadInstance: NgbTypeahead;
 
@@ -64,10 +67,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     });
   }
   ngAfterViewInit() {
-    // this.updateImageDimensions();
-    // this.updateTransform();
-    // this.calculateMaxPositions();
 }
+
   getLabelName(labelId) {
     let labelIndex = this.labels.findIndex(x => x.id === labelId);
     return this.labels[labelIndex]?.name || '';
@@ -141,10 +142,19 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
-        
         this.Assetsimages=data;
         
+        this.Assetsimages.forEach(element => {
+          this.imageObjectmox.push({
+            image:'getDownloadUrl(element.id)',
+            thumbImage:'getDownloadUrl(element.id)',
+            title:element.name
+        });
+      });
+       
+        
     });
+    
     
   }
   
@@ -236,4 +246,22 @@ ngOnDestroy(): void {
   if (!this.router.url.includes('/review-asset'))
       this.utils.pageTrackingData = 1;
 }
+imageObjects: Array<object> = [{
+  video: 'https://youtu.be/6pxRHBw-k8M' // Youtube url
+},
+{
+video: 'assets/video/movie.mp4', // MP4 Video url
+},
+{
+video: 'assets/video/movie2.mp4',
+  posterImage: 'assets/img/slider/2_min.jpeg', //Optional: You can use this key if you want to show video poster image in slider
+  title: 'Image title'
+},
+{
+image: 'getDownloadUrl(1465)',
+  thumbImage: 'assets/img/slider/1_min.jpeg',
+  alt: 'Image alt'
+}
+
+];
 }

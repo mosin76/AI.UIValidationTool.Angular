@@ -16,9 +16,10 @@
                 <tr>
                     <th class="key" style="text-align: center;">Case ID :<span style="font-weight:normal;">{{currentDocument.caseId}}</span></th>
                 </tr>
-                <!-- <tr>
-                    <th class="key" style="text-align: center;">File Name :<span style="font-weight:normal;">{{currentDocument.name}}</span></th>
-                </tr> -->
+                <tr>
+                    <th class="key" style="text-align: center;">VIN :<span style="font-weight:normal;">{{currentDocument.vin}}</span></th>
+                </tr>
+               
             </table>
         </div>
         <div class="mt-4">
@@ -65,8 +66,9 @@
                   <img  
                   [src]="getDownloadUrl(imageUrl.id)"
                   (error)="imageLoadFailed($event)"
+                  (load)="calculateMaxPositions()"
                    >
-                  <!-- <p>{{ imageUrl.name }}</p> -->
+                   <p>{{ imageUrl.name }}</p>
                 </div>
               </div>
         </div>
