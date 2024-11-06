@@ -143,7 +143,7 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     
     this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
         this.Assetsimages=data;
-        
+        this.imageObjectmox.pop();
         this.Assetsimages.forEach(element => {
           let url=this.getDownloadUrl(element.id);
           this.imageObjectmox.push({
@@ -152,7 +152,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
             title:element.name
         });
       });
-       
         
     });
     
