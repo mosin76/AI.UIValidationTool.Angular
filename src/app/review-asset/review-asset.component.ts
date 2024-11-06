@@ -145,9 +145,10 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         this.Assetsimages=data;
         
         this.Assetsimages.forEach(element => {
+          let url=this.getDownloadUrl(element.id);
           this.imageObjectmox.push({
-            image:'getDownloadUrl(element.id)',
-            thumbImage:'getDownloadUrl(element.id)',
+            image:url,
+            thumbImage:url,
             title:element.name
         });
       });

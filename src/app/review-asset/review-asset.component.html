@@ -58,27 +58,14 @@
             </div>
 
         </div>
+       
         <div>
             <hr class="section-separator">
-            <div class="image-grid">
-                <div class="image-box" *ngFor="let imageUrl of Assetsimages; let i = index" (click)="toggleZoom(i +1)"
-                [class.zoomed]="zoomedImageIndex === i+1">
-                  <img  
-                  [src]="getDownloadUrl(imageUrl.id)"
-                  (error)="imageLoadFailed($event)"
-                  (load)="calculateMaxPositions()"
-                   >
-                   <p>{{ imageUrl.name }}</p>
-                </div>
-              </div>
+            <ng-image-slider [images]="imageObjectmox" #nav></ng-image-slider>
         </div>
-        <!-- <div *ngIf="zoomedImageIndex !== null" class="zoom-overlay" (click)="toggleZoom(null)">
-            <img [src]="imageUrls[zoomedImageIndex - 1]" alt="Zoomed Image">
-          </div>  -->
+      
     </div>
    
 </div>
-    <!-- <div *ngIf="zoomedImageIndex !== null" class="zoom-overlay" (click)="toggleZoom(null)">
-        <img [src]="imageUrls[zoomedImageIndex - 1]" alt="Zoomed Image">
-      </div>  -->
+   
 
