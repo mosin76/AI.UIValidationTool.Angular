@@ -87,7 +87,7 @@
                                 popoverTitle="{{classification.name}}">
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </button>
-                            : {{classification.probability}}
+                            : {{classification.probability}} %
                             <button class="btn btn-lg thumb-icons" (click)="approve(classification.labelId)"
                                 [ngClass]="{'thumb-dirty-none': classification.userReviewState === 0, 'thumb-dirty-add': classification.userReviewState === 1}" style="padding:2px;">
                                 <i class="lpx-icon fas fa-thumbs-up" style="padding: 2px"></i>
@@ -151,76 +151,7 @@
                     </div>
 
                     <hr class="section-separator">
-                    <!-- <h3>Possible Damage(s)</h3>
-                    <div *ngFor="let damage of currentDocument.damages" class="classification-item">
-                        <span *ngIf="!damage.userChosen">
-                            {{damage.name}}
-                            <button *ngIf="getDamageHelpText(damage.labelId)" class="btn" style="padding:2px"
-                                placement="top"
-                                ngbPopover="{{getDamageHelpText(damage.labelId)}}"
-                                popoverTitle="{{damage.name}}">
-                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                            </button>
-                            : {{Classification.probability}}
-                            <button class="btn btn-lg thumb-icons" (click)="approve(damage.labelId)"
-                                [ngClass]="{'thumb-dirty-none': damage.userReviewState === 0, 'thumb-dirty-add': damage.userReviewState === 1}" style="padding:2px;">
-                                <i class="lpx-icon fas fa-thumbs-up" style="padding: 2px"></i>
-                            </button>
-                            <button class="btn btn-lg thumb-icons" (click)="reject(damage.labelId)"
-                                [ngClass]="{'thumb-dirty-none': damage.userReviewState === 0, 'thumb-dirty-remove': damage.userReviewState === -1}" style="padding:2px;">
-                                <i class="lpx-icon fas fa-thumbs-down" style="padding: 2px"></i>
-                            </button>
-                            <span *ngIf="damage.additionalInfo">
-                                <br />
-                                <span style="font-size:smaller;font-style:italic">({{damage.additionalInfo}})</span>
-                            </span>
-                        </span>
-                    </div>
-                    <h3>Add Missing Damage(s)</h3>
-                    <div *ngFor="let labelId of updateDirtyLabels()">
-                        <span class="text-dirty-add">
-                            {{getLabelName(labelId)}}
-                            <button *ngIf="getDamageHelpText(labelId)" class="btn" style="padding:2px"
-                                placement="top"
-                                ngbPopover="{{getDamageHelpText(labelId)}}"
-                                popoverTitle="{{getLabelName(labelId)}}">
-                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                            </button>
-                        </span>
-                        <button (click)="deleteDamage(labelId)" class="btn btn-xs btn-danger btn-remove">Delete</button>
-                    </div>
-                    <div>
-                        <input type="text"
-                               [ngbTypeahead]="searchDamage"
-                               (selectItem)="addDamage($event, currentUpdate)"
-                               [resultFormatter]="searchBoxformatter"
-                               [(ngModel)]="searchDamageLabelSelectionModel"
-                               [inputFormatter]="searchBoxformatter"
-                               (focus)="focus$.next($any($event).target.value)"
-                               (click)="click$.next($any($event).target.value)"
-                               #instance="ngbTypeahead"
-                               placeholder="Search for damage..." />
-                    </div> -->
-                    <!-- <div>
-                        <button class="btn btn-link pt-1" (click)="openCustomDamagePopup()">
-                            {{ proposedDamages && proposedDamages.length > 0 ? 'Edit Proposed Damage : ' : 'Add Proposed Damage' }}
-                        </button>
-                        <span *ngIf="!showCustomDamageInput">{{proposedDamages}}</span>
-                        <div *ngIf="showCustomDamageInput" class="custom-label-popup">
-                            <div>
-                                <table style="margin: 0 auto;">
-                                    <tr>
-                                        <td>
-                                            <input type="text" [(ngModel)]="proposedDamages" placeholder="Enter custom damage" class="form-control" width="300" />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-link" (click)="saveCustomDamage()">Save</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div> -->
+                    
                 </div>
                 <hr class="section-separator">
             <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="previous()" [disabled]="!canMovePrevious()">Previous</button>
