@@ -113,6 +113,15 @@
     align-items: flex-start;
     margin-top: 0px;
 }
+.doc-container {
+    position: relative;
+    width:100%;
+    min-height: 200px;
+    flex: 1;
+    overflow: hidden;
+    text-align: center;
+    padding-top: 79px;
+}
 
 .image-container {
     position: relative;

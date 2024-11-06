@@ -38,6 +38,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
     zoomLevel: number = 1;
     zoomFactor = 1;  // Initial zoom factor
     borderSize = 2;
+    fileextension :string ='';
     borderColor = '#000000';
     imageTransform: string = '';
     positionX: number = 0;
@@ -181,6 +182,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
         var currentDocId: number = this.currentDocument == null ? -1 : this.currentDocument.id;
         this.reviewService.downloadDocumentMime(tenantId, currentDocId).subscribe(data => {
+            this.fileextension=data.extension;
             this.isImage=this.reviewService.isImageDoc(data.extension)
         });
     }
