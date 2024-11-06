@@ -30,7 +30,7 @@ export class ReviewDocService {
         let url = this.baseUrlDoc + 'document-download?documentId=' + documentId;
         if (tenantId !== null && tenantId !== undefined && tenantId !== '')
             url = url + '&tenantId=' + tenantId +'&t='+15;
-        this.http.get(url);
+        return this.http.get(url,{ responseType: 'blob' });
     }
     getNextDocumentInfo(tenantid, caseId, curDocId): Observable<Response<DocumentInfoResponse>> {
         let url = this.baseUrlDoc + 'document-next';
