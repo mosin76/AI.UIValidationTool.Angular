@@ -1,0 +1,17 @@
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-content {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    display: block;
+}
+
+.thumbnail-image {
+    cursor: pointer;
+}

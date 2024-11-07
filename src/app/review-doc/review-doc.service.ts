@@ -64,15 +64,6 @@ export class ReviewDocService {
     userReviewDone(): Observable<any> {
         return this.http.get<any>(this.baseUrlDoc + "document-review-complete");
     }
-    isImageDoc(imageextension)
-    {
-        if(imageextension=='png' || imageextension=='jpg' || imageextension=='jpeg')
-            return "image";
-        else if(imageextension=='pdf')
-            return  "pdf";
-        else
-            return "doc";
-    }
 }
 
 export interface DocLabel {

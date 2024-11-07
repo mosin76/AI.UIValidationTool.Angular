@@ -1,8 +1,8 @@
-import { Component, ChangeDetectorRef, ViewChild, } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, TemplateRef, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, OperatorFunction, Subject, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { NgbTypeaheadSelectItemEvent, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeaheadSelectItemEvent, NgbTypeahead, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UtilsService, Response } from '../shared/utils.service';
 import { AutoSquaredBaseComponent } from '../shared/autosquared-base-component';
@@ -10,6 +10,7 @@ import { ProgressBarEvent } from 'ngx-extended-pdf-viewer';
 import { AuthService } from '@abp/ng.core';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 import { DocClassificationChangeSaveInfo, DocLabel, DocumentInfo, DocumentInfoResponse, ReviewImgService } from './review-img.service';
+import { ImageViewerComponent } from '../image-viewer/image-viewer.component'; 
 
 @Component({
     selector: 'app-review-img',
@@ -32,20 +33,7 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
     pdfDownloadProgress: number = 0;
     groupId: number;
     fileLoadingError: string;
-    zoomLevel: number = 1;
-    zoomFactor = 1;  // Initial zoom factor
-    borderSize = 2;
-    borderColor = '#000000';
-    imageTransform: string = '';
-    positionX: number = 0;
-    positionY: number = 0;
-    sliderValue: number = 50;
-    verticalSliderValue: number = 50;
-    maxPositionX: number = 100;
-    maxPositionY: number = 100;
-    rotationAngle: number = 0;
-    imageWidth: number = 0;
-    imageHeight: number = 0
+  
 
     @ViewChild('instance', { static: false }) typeaheadInstance: NgbTypeahead;
 
@@ -61,6 +49,7 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
         private toastr: ToastrService,
         utils: UtilsService,
         router: Router,
+        private modalService: NgbModal,
         auth: AuthService,
         private confirmDialogService: ConfirmationDialogService,
         private cdr: ChangeDetectorRef
@@ -82,107 +71,12 @@ export class ReviewImgComponent extends AutoSquaredBaseComponent {
         });
     }
 
+    openModel(content: TemplateRef<any>) {
+        this.modalService.open(content, { fullscreen: true });
+    }
+
     ngAfterViewInit() {
-        this.updateImageDimensions();
-        this.updateTransform();
-        this.calculateMaxPositions();
     }
-
-    calculateMaxPositions() {
-        if (this.imageElement && this.imageElement.nativeElement) {
-            const image = this.imageElement.nativeElement;
-            this.maxPositionX = image.width * this.imageScale - image.clientWidth;
-            this.maxPositionY = image.height * this.imageScale - image.clientHeight;
-            if (this.maxPositionX < 0) this.maxPositionX = 0;
-            if (this.maxPositionY < 0) this.maxPositionY = 0;
-        }
-    }
-    updateImageDimensions() {
-        const imageElement = document.querySelector('.image-container img') as HTMLImageElement;
-        if (imageElement) {
-            this.imageWidth = imageElement.naturalWidth * this.zoomLevel / 2;
-            this.imageHeight = imageElement.naturalHeight * this.zoomLevel / 2;
-            this.maxPositionX = Math.max(this.imageWidth);
-            this.maxPositionY = Math.max(this.imageHeight);
-
-            // Update slider max values based on image dimensions
-            this.sliderValue = this.calculateSliderValueFromPositionX(this.positionX);
-            this.verticalSliderValue = this.calculateSliderValueFromPositionY(this.positionY);
-        }
-    }
-    calculateSliderValueFromPositionX(positionX: number): number {
-        return (positionX / this.maxPositionX) * 100 + 50;
-    }
-
-    calculateSliderValueFromPositionY(positionY: number): number {
-        return (positionY / this.maxPositionY) * 100 + 50;
-    }
-
-    onSliderChange(event: any) {
-        this.positionX = this.calculatePositionXFromSlider(event.target.value);
-        this.updateTransform();
-    }
-
-    onVerticalSliderChange(event: any) {
-        this.positionY = this.calculatePositionYFromSlider(event.target.value);
-        this.updateTransform();
-    }
-
-    zoomIn() {
-        if (this.zoomLevel < 5) {
-            this.zoomLevel += 0.5;
-            this.updateImageDimensions();
-            this.updateTransform();
-        }
-    }
-
-    zoomOut() {
-        if (this.zoomLevel > 0.5) {
-            this.zoomLevel -= 0.5;
-            this.updateImageDimensions();
-            this.updateTransform();
-        }
-    }
-
-    rotateLeft() {
-        this.rotationAngle -= 30;
-        this.updateTransform();
-    }
-
-    rotateRight() {
-        this.rotationAngle += 30;
-        this.updateTransform();
-    }
-
-    resetZoomAndRotation() {
-        this.zoomLevel = 1;
-        this.rotationAngle = 0;
-        this.positionX = 0;
-        this.positionY = 0;
-        this.sliderValue = 50;
-        this.verticalSliderValue = 50;
-        this.updateImageDimensions();
-        this.updateTransform();
-    }
-
-    updateTransform() {
-        const transform = `scale(${this.zoomLevel}) rotate(${this.rotationAngle}deg) translateX(${this.positionX}px) translateY(${this.positionY}px)`;
-        const imageElement = document.querySelector('.image-container img') as HTMLImageElement;
-        if (imageElement) {
-            imageElement.style.transform = transform;
-
-        }
-
-    }
-
-    calculatePositionXFromSlider(sliderValue: number): number {
-        return (sliderValue - 50) / 50 * this.maxPositionX;
-    }
-
-    calculatePositionYFromSlider(sliderValue: number): number {
-        return (sliderValue - 50) / 50 * this.maxPositionY;
-    }
-
 
 
     // Formatter for the search box, displaying the label name.

@@ -8,11 +8,13 @@ import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-d
 import { NgbTypeaheadSelectItemEvent, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import {  AssetInfoInfoResponse, Assetsimages, AssetsInfo, DocClassificationChangeSaveInfo, DocLabel, ReviewAssetService } from './review-asset.service';
 import { Subject } from 'rxjs';
+import { RmImageSliderComponent } from 'rm-image-slider';
+import { ImageObject } from 'rm-image-slider/lib/interface';
 
 @Component({
   selector: 'app-review-asset',
   templateUrl: './review-asset.component.html',
-  styleUrl: './review-asset.component.scss'
+    styleUrl: './review-asset.component.scss',
 })
 export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   loading: boolean = false;
@@ -31,7 +33,7 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   groupId: number;
   Assetsimages:any;
   fileLoadingError: string;
-  imageObjectmox: Array<object>=[{}];
+  imageObjectmox: Array<ImageObject>=[];
   imageElement: any;
   imageScale: any;
  
@@ -144,12 +146,14 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
         this.Assetsimages=data;
         this.imageObjectmox.pop();
+
         this.Assetsimages.forEach(element => {
           let url=this.getDownloadUrl(element.id);
           this.imageObjectmox.push({
             image:url,
             thumbImage:url,
-            title:element.name
+              title: element.name,
+              index: this.imageObjectmox.length
         });
       });
         

@@ -121,26 +121,23 @@
     margin-top: 0px;
 }
 
+.image-content {
+    width: auto;
+    height: 100%;
+    display: block;
+}
+
 .image-container {
     position: relative;
-    width:100%;
-    //min-height: 725px;
+    width: 100%;
+    min-height: 600px;
     display: flex;
     flex: 1;
     overflow: hidden;
-    background: #ccc;
-    
-    
-    
+    align-content: center;
+    justify-content: center;
 }
 
-.image-container img {
-   
-    overflow: hidden;
-    width:calc(100% - 15px);
-   // height: auto;
-    display:flex;
-}
 .image-container-int{
     position: relative;
     width:100%;

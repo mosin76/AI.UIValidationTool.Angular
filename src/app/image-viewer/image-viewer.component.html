@@ -1,0 +1,20 @@
+<!-- Thumbnail or preview image that opens the modal when clicked -->
+<img [src]="imageUrl"
+     alt="{{ title }}"
+     class="thumbnail-image"
+     (click)="open(imageModal)" />
+<!-- Modal template -->
+<ng-template #imageModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <img [src]="imageUrl"
+             (error)="imageLoadFailed($event)"
+             class="image-content" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

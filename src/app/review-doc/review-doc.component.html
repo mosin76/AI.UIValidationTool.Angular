@@ -4,7 +4,7 @@
             You are viewing <strong>{{tenant.name}}</strong> data. <a [routerLink]="['']">Click here to change</a>
         </p>
     </div>
-    
+
     <div *ngIf="loading">
         <img src="../../assets/images/logo/loading.gif" alt="">
         <div class="loading">Loading...</div>
@@ -15,10 +15,10 @@
             <h1>Document(s) Needing Review</h1>
             <h4>Number of Document(s): {{totalCount}}</h4>
             <span *ngIf="currentDocument === null">Nothing to review.</span>
-           
+
         </div>
         <div class="content" *ngIf="currentDocument">
-            <div class="image-container" *ngIf="isImage=='pdf'">
+            <div class="image-container" *ngIf="docType=='pdf'">
                 <ng-container>
                     <div style="width:100%; height:100vh">
                         <ngx-extended-pdf-viewer [src]="downloadUrl"
@@ -34,70 +34,22 @@
                                                  (pdfLoadingFailed)="pdfLoadFailed($event)"
                                                  [needsES5]="true">
                         </ngx-extended-pdf-viewer>
-                       
+
                     </div>
                 </ng-container>
 
             </div>
-            <div class="image-container" *ngIf="isImage=='image'" >
-                <div class="image-container-int">
-                    <div class="headerimagecontainer">
-                        <!-- Zoom controls -->
-                        <button (click)="zoomIn()" class="Zoominbutton"><i class="fa-solid fa-plus"></i></button>
-                        <button (click)="zoomOut()" class="Zoomoutbutton"><i class="fa-solid fa-minus"></i></button>
-                        <!-- Rotate controls -->
-                        <button (click)="rotateLeft()" class="rotateleftbutton">
-                            <i class="fa-solid fa-rotate-left"></i>
-                        </button>
-                        <button (click)="rotateRight()" class="rotaterightbutton">
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </button>
-                        <button (click)="resetZoomAndRotation()" class="reseter">
-                            <i class="fa-solid fa-refresh"></i>
-                        </button>
-                    </div>
-                    <span class="displayzoom">
-                        Zoom: {{ zoomLevel * 100 }}%
-                    </span>
+            <div class="image-container" *ngIf="docType=='image'">
+                <app-image-viewer [imageUrl]="downloadUrl"
+                                  [title]="currentDocument.name"
+                                  [imageLoadFailed]="imageLoadFailed">
 
-                    <!-- Image container -->
-                    <div class="image-container">
-                        <img
-                            #imageElement
-                            [src]="downloadUrl"
-                            (load)="calculateMaxPositions()"
-                            (error)="imageLoadFailed($event)"
-                            [style.transform]="imageTransform"
-                            class="image-content"
-                        />
-                        <input
-                            #verticalSlider
-                            type="range"
-                            min="0"
-                            max="100"
-                            [(ngModel)]="verticalSliderValue"
-                            (input)="onVerticalSliderChange($event)"
-                            class="vertical-slider"
-                        />
-                        <footer class="horizontal-slider-container">
-                            <input type="range"
-                                   min="0"
-                                   max="100"
-                                   [(ngModel)]="sliderValue"
-                                   (input)="onSliderChange($event)"
-                                   class="horizontal-slider">
-                        </footer>
-                    </div>
-                </div>
+                </app-image-viewer>
             </div>
-            <div class="doc-container" *ngIf="isImage=='doc'" >
-               
-                    
-                        <a href="{{downloadUrl}}">Download {{fileextension}} Document</a>
-                        
-                  
-               
+            <div class="doc-container" *ngIf="docType=='doc'">
+                <a href="{{downloadUrl}}">Download the document</a>
             </div>
+
             <div class="form-container">
                 <table class="table borderless">
                     <tr>
@@ -191,13 +143,13 @@
                     <!-- Possible Damage section omitted for brevity -->
 
                 </div>
-            
 
-            <hr class="section-separator">
-            <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="previous()" [disabled]="!canMovePrevious()">Previous</button>
-            <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="skip()" [disabled]="!canSkip()">Skip</button>
-            <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="saveUpdateReview()" [disabled]="!canSave">Save</button>
-        </div>
+
+                <hr class="section-separator">
+                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="previous()" [disabled]="!canMovePrevious()">Previous</button>
+                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="skip()" [disabled]="!canSkip()">Skip</button>
+                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="saveUpdateReview()" [disabled]="!canSave">Save</button>
+            </div>
         </div>
     </div>
 </div>

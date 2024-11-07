@@ -23,8 +23,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { LabelMenuComponent } from './label-menu/label-menu.component';
 import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
-import { NgImageSliderModule } from 'ng-image-slider';
-
+import { RmImageSliderComponent } from 'rm-image-slider'; 
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 @NgModule({
     imports: [
@@ -34,7 +34,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
         MatMenuModule,
         LabelMenuComponent,
         MatButtonModule,
-        NgImageSliderModule,
+        RmImageSliderComponent,
+        ImageViewerComponent,
         CoreModule.forRoot({
             environment,
             registerLocaleFn: registerLocale(),
