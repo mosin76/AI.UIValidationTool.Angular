@@ -35,6 +35,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
     pdfDownloadProgress: number = 0;
     groupId: number;
     fileLoadingError: string;
+    fileextension :string;
 
 
     @ViewChild('instance', { static: false }) typeaheadInstance: NgbTypeahead;
@@ -168,6 +169,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         var currentDocId: number = this.currentDocument == null ? -1 : this.currentDocument.id;
         this.reviewService.downloadDocumentMime(tenantId, currentDocId).subscribe(data => {
+            this.fileextension=data.extension;
             this.docType = this.getDocumentType(data.extension)
         });
     }

@@ -19,4 +19,5 @@
     display: inline-block; /* Ensure padding does not alter layout unexpectedly */
     border-radius: 5px; /* Optional: adds rounded corners */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a soft shadow */
+    width: 100%;
 }

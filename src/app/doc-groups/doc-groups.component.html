@@ -44,6 +44,7 @@
                             </button>
                             <div *ngIf="group.numOfImages == 0"> No pictures</div>
                         </td>
+                       
                         <td>
                             <button *ngIf="group.numOfAssets > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="assetsbaseurl" [queryParams]="{ groupId: group.name }">
                                 Review 

@@ -41,7 +41,7 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
             g.name = name;
             g.numOfDocs = 0;
             g.numOfImages = 0;
-           
+            g.numOfAssets=0;
             this.groups.push(g);
             this.groups.sort((a, b) => { return a.name.localeCompare(b.name) });
         }
@@ -76,6 +76,7 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
         
         this.reviewService.getAssets(tenantId).subscribe(data => {
             //add the data to groups variable
+            debugger;
             data.forEach(d => {
                 var g = this.getGroup(d.name);
                 g.numOfAssets = d.itemCount;

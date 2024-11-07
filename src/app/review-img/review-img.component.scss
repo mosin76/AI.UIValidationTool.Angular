@@ -130,12 +130,13 @@
 .image-container {
     position: relative;
     width: 100%;
-    min-height: 500px;
     display: flex;
     flex: 1;
     overflow: hidden;
     align-content: center;
     justify-content: center;
+    overflow-y: auto;
+    height: 600px;
 }
 
 .image-container-int{
