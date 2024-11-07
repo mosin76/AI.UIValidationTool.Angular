@@ -39,7 +39,7 @@
                 </ng-container>
 
             </div>
-            <div class="image-container" *ngIf="docType=='image'">
+            <div class="image-container"  *ngIf="docType=='image'">
                 <app-image-viewer [imageUrl]="downloadUrl"
                                   [title]="currentDocument.name"
                                   [imageLoadFailed]="imageLoadFailed">

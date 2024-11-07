@@ -115,8 +115,9 @@
 }
 .doc-container {
     position: relative;
-    width:100%;
-    min-height: 200px;
+    width:400%;
+    height: 100%;
+    //min-height: 200px;
     flex: 1;
     overflow: hidden;
     text-align: center;
@@ -130,10 +131,6 @@
     display: flex;
     flex: 1;
     overflow: hidden;
-    background: #ccc;
-    
-    
-    
 }
 
 .image-container img {
