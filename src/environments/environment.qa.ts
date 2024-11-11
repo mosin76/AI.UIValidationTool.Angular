@@ -1,6 +1,6 @@
 import { Environment } from '@abp/ng.core';
 
-const baseUrl = 'https://blue-tree-0ab06dd0f.5.azurestaticapps.net';    //qa
+const baseUrl = 'https://delightful-bush-04f47e70f.5.azurestaticapps.net';    //qa
 //const baseUrl = 'https://icy-ground-09ceafc0f.5.azurestaticapps.net';    //rod
 
 export const environment = {
@@ -11,7 +11,7 @@ export const environment = {
         logoUrl: '',
     },
     oAuthConfig: {
-        issuer: 'https://autosquaredaivalidationapphttpapihost.azurewebsites.net/',   //qa
+        issuer: 'https://ai-validation-ui-be-test-eastus.azurewebsites.net/',   //qa
         //issuer: 'https://aibeapp-autosquared-prod-us.azurewebsites.net/',   //prod
         redirectUri: baseUrl,
         clientId: 'ValidationApp_App',
@@ -21,7 +21,7 @@ export const environment = {
     },
     apis: {
         default: {
-            url: 'https://autosquaredaivalidationapphttpapihost.azurewebsites.net', //qa
+            url: 'https://ai-validation-ui-be-test-eastus.azurewebsites.net', //qa
             //url: 'https://aibeapp-autosquared-prod-us.azurewebsites.net', //prod
             rootNamespace: 'AutoSquared.AI.ValidationApp',
         },

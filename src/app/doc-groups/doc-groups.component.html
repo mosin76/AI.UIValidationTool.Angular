@@ -49,7 +49,7 @@
                             <button *ngIf="group.numOfAssets > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="assetsbaseurl" [queryParams]="{ groupId: group.name }">
                                 Review 
                             </button>
-                            <div *ngIf="group.numOfAssets == 0"> No Assets</div>
+                            <div *ngIf="group.numOfAssets == 0">No Asset to Review</div>
                         </td>
                     </tr>
 
