@@ -35,7 +35,7 @@
                 </table>
                 <div class="mt-4">
                     <hr class="section-separator">
-                    <h3>Predicted Label(s)</h3>
+                    <h3>Classification(s)</h3>
                     <div *ngFor="let classification of currentDocument.classifications" class="classification-item">
                         <span *ngIf="!classification.userChosen">
                             {{classification.name}}
@@ -62,7 +62,7 @@
                     </div>
 
                     <hr class="section-separator">
-                    <h3>Add Missing Label(s)</h3>
+                    <h3>Add Missing Classification(s)</h3>
                     <div *ngFor="let labelId of updateDirtyLabels()">
                         <span class="text-dirty-add">
                             {{getLabelName(labelId)}}

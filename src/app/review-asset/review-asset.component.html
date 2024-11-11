@@ -8,7 +8,7 @@
     </div>
     <div style="text-align: center;" *ngIf="!loading">
         <div class="header">
-            <h1>Assets(s) Needing Review</h1>
+            <h1>Asset Review</h1>
             <span *ngIf="currentDocument === null">Nothing to review.</span>
         </div>
         <div class="form-container">
@@ -24,7 +24,7 @@
         </div>
         <div class="mt-4">
             <hr class="section-separator">
-            <h3>Predicted Label(s)</h3>
+            <h3>Classification(s)</h3>
             <div *ngFor="let classification of currentDocument.classifications" class="classification-item">
                 <span *ngIf="!classification.userChosen">
                     {{classification.name}}

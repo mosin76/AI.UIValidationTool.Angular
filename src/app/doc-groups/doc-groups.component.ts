@@ -76,7 +76,7 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
         
         this.reviewService.getAssets(tenantId).subscribe(data => {
             //add the data to groups variable
-            debugger;
+            //debugger;
             data.forEach(d => {
                 var g = this.getGroup(d.name);
                 g.numOfAssets = d.itemCount;
