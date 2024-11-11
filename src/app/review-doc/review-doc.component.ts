@@ -29,6 +29,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
     labels: DocLabel[];
     availableLabels: DocLabel[];
     currentDocument: DocumentInfo;
+    currentDocumentName: string;
     totalCount: number;
     skippedDocumentIds: number[] = [];
     downloadUrl: string | null = null;
@@ -171,7 +172,9 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         var currentDocId: number = this.currentDocument == null ? -1 : this.currentDocument.id;
         this.reviewService.downloadDocumentMime(tenantId, currentDocId).subscribe(data => {
             this.fileextension=data.extension;
+            this.currentDocumentName=data.docName
             this.docType = this.getDocumentType(data.extension)
+
         });
     }
     //Retrieves the next document to review, optionally skipping a document.
@@ -373,6 +376,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
    
     //  Retrieves available labels from the service
     async DownloadDocument() {
+        debugger;
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         var currentDocId: number = this.currentDocument.id;
         this.reviewService.getDownloadDocDownload(tenantId,currentDocId).subscribe(async (event) => {
@@ -384,13 +388,17 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
                 const a = document.createElement('a');
                 a.setAttribute('style', 'display:none;');
                 document.body.appendChild(a);
-                a.download = currentDocId.toString();
+                a.download = this.currentDocumentName;
                 a.href = URL.createObjectURL(downloadedFile);
                 a.target = '_blank';
                 a.click();
                 document.body.removeChild(a);
             }
-        });
+        },
+        (error) => {
+            this.toastr.error('File doesn not exist.'); // Centralized error handling
+          }
+        );
     }
     ngOnDestroy(): void {
         this.reviewService

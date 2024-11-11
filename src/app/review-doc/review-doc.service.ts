@@ -64,6 +64,8 @@ export class ReviewDocService {
     userReviewDone(): Observable<any> {
         return this.http.get<any>(this.baseUrlDoc + "document-review-complete");
     }
+    
+
 }
 
 export interface DocLabel {
