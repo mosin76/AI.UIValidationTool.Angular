@@ -47,7 +47,8 @@
                 </app-image-viewer>
             </div>
             <div class="doc-container" *ngIf="docType=='doc'">
-                <a href="{{downloadUrl}}">Download {{fileextension}} document</a>
+                
+                <button class="btn btn-link" (click)="DownloadDocument()">Download {{fileextension}} document</button>
             </div>
 
             <div class="form-container">

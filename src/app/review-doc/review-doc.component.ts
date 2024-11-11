@@ -10,6 +10,7 @@ import { AutoSquaredBaseComponent } from '../shared/autosquared-base-component';
 import { ProgressBarEvent } from 'ngx-extended-pdf-viewer';
 import { AuthService } from '@abp/ng.core';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -163,7 +164,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
             this.loading = false;
         });
     }
-    //Retrieves the next document to extension
+    
     getDocumentExtension() {
         this.loading = true;
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
@@ -368,6 +369,28 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         var currentDocId: number = this.currentDocument.id;
         this.reviewService.getDownloadDocDownload(tenantId, currentDocId);
+    }
+   
+    //  Retrieves available labels from the service
+    async DownloadDocument() {
+        var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
+        var currentDocId: number = this.currentDocument.id;
+        this.reviewService.getDownloadDocDownload(tenantId,currentDocId).subscribe(async (event) => {
+            let data = event as unknown as HttpResponse <Blob> ;
+            const downloadedFile = new Blob([data as unknown as BlobPart], {
+                type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            });
+            if (downloadedFile.type != "") {
+                const a = document.createElement('a');
+                a.setAttribute('style', 'display:none;');
+                document.body.appendChild(a);
+                a.download = currentDocId.toString();
+                a.href = URL.createObjectURL(downloadedFile);
+                a.target = '_blank';
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
     }
     ngOnDestroy(): void {
         this.reviewService
