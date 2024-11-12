@@ -30,7 +30,7 @@
                         <td colspan="2" class="text-center">No Document(s) / Image(s) to review</td>
                     </tr>
                     <!-- Loop over both groups and Pictures -->
-                    <tr *ngFor="let group of groups">
+                    <tr *ngFor="let group of groups | paginate: { itemsPerPage: 10, currentPage: p }">
                         <td>{{ group.name }}</td>
                         <td>
                             <button *ngIf="group.numOfDocs > 0" class="btn btn-primary btn-sm min-width-100" [routerLink]="docBaseUrl" [queryParams]="{ groupId: group.name }">
@@ -52,10 +52,13 @@
                             <div *ngIf="group.numOfAssets == 0">No Asset to Review</div>
                         </td>
                     </tr>
-
+                    
+                    
 
                 </tbody>
+                
             </table>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
         </ng-template>
     </div>
 </div>

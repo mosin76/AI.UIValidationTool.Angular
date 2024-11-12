@@ -26,6 +26,7 @@ import { ConfirmationDialogService } from './confirmation-dialog/confirmation-di
 import { RmImageSliderComponent } from 'rm-image-slider'; 
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
+
 @NgModule({
     imports: [
         BrowserModule,

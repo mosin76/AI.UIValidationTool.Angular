@@ -14,6 +14,7 @@ import { AuthService } from '@abp/ng.core';
 })
 export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
     groups: DptaGroup[] = [];
+    p: number = 1;
     imgBaseUrl: string = '/review-img';
     docBaseUrl: string = '/review-doc';
     assetsbaseurl: string = '/review-asset';

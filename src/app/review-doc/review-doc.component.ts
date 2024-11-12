@@ -396,7 +396,7 @@ export class ReviewDocComponent extends AutoSquaredBaseComponent {
             }
         },
         (error) => {
-            this.toastr.error('File doesn not exist.'); // Centralized error handling
+            this.toastr.error('File does not exist.'); // Centralized error handling
           }
         );
     }
