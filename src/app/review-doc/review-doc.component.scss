@@ -28,83 +28,6 @@
     display: inline-block;
     position: absolute;
 }
-
-/* Zoom controls */
-.Zoominbutton {
-    position: absolute;
-    display: inline;
-    top: 0px; 
-    right: 10px; 
-    z-index: 10;
-}
-
-.Zoomoutbutton {
-    position: absolute;
-    display: inline;
-    top: 0px; 
-    right: 40px; 
-    z-index: 10;
-}
-
-/* Rotate controls */
-.rotateleftbutton {
-    position: absolute;
-    display: inline;
-    top: 0px;
-    left: 10px; 
-    z-index: 10;
-    
-}
-
-.rotaterightbutton {
-    position: absolute;
-    display: inline;
-    top: 0px;
-    left: 40px; 
-    z-index: 10;
-    
-}
-
-/* Reset button */
-.reseter {
-    position: absolute;
-    display: inline;
-    align-self: center;
-    top: 0px;
-    left: 45%;
-    right:55%; 
-    z-index: 10;
-   
-}
-
-  
- 
-.displayzoom{
-    position: absolute;
-    top: 10px;
-    right:25% px;
-    left:70%;
-    z-index: 10;
-    font-size: 16px;
-}
-/* Adjust icon size */
-.headerimagecontainer i {
-    font-size: 17px; 
-}
-.horizontal-slider-container{
-    position:absolute;
-    bottom: 0;
-    left: 0; 
-    width: 100%;
-    height: 20px;
-    background-color: rgba(236,236,236,0.8);
-    z-index: 10;  
-}
-.horizontal-slider{
-    width: 100%;
-    height: 100%;
-    margin: 0;  
-}
 /* Content section styling */
 .content {
     display: flex;
@@ -144,17 +67,6 @@
     position: relative;
     width:100%;
     height:auto;
-}
-.vertical-slider {
-    position: absolute;
-    top: 0px;
-    
-    right: 10px; /* Positions the slider within the 20px margin */ 
-    width: 95vh;
-    transform: rotate(270deg); /* Rotate to make it vertical */
-    transform-origin: right center; /* Adjust origin to align properly */
-    z-index: 10;
-    background-color: white;
 }
 /* Form container styling */
 .form-container {

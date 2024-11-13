@@ -54,7 +54,7 @@
             
             <div>
                 <hr class="section-separator">
-                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="saveUpdateReview()">Save</button>
+                <button class="btn btn-primary" style="margin-right:10px; margin-left:10px" (click)="saveUpdateReview()" [disabled]="!canSave">Save</button>
             </div>
 
         </div>
