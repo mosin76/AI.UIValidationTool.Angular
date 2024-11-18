@@ -28,7 +28,7 @@
                     <tr *ngIf="!loading && (!updatetypes || updatetypes.length === 0)">
                         <td colspan="2" class="text-center">No updates to review</td>
                     </tr>
-                    <tr *ngFor="let item of updatetypes">
+                    <tr *ngFor="let item of updatetypes | paginate: { itemsPerPage: 20, currentPage: p }">
                         <td>
                             {{item.description}}
                         </td>
@@ -41,6 +41,7 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
         </ng-template>
     </div>
 </div>

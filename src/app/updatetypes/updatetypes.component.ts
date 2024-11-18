@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { UtilsService } from '../shared/utils.service';
 import { AutoSquaredBaseComponent } from '../shared/autosquared-base-component';
 import { Router } from '@angular/router';
@@ -14,11 +14,14 @@ import { AuthService, ConfigStateService } from '@abp/ng.core';
 export class UpdateTypesComponent extends AutoSquaredBaseComponent {
     updatetypes: UpdateType[];
     enableReviewMultipleUpdatesPage: boolean;
+    p: number = 1;
 
     constructor(private reviewService: ReviewUpdatesApiService,
         utils: UtilsService,
         router: Router,
         auth: AuthService,
+        private renderer: Renderer2,        // Import Renderer2
+        private el: ElementRef,
         private config: ConfigStateService) {
             super(utils,auth, router);
     }
@@ -36,6 +39,12 @@ export class UpdateTypesComponent extends AutoSquaredBaseComponent {
         this.reviewService.getEventTypeList(tenantId).subscribe(data => {
             this.updatetypes = data;
             this.loading = false;
+        });
+    }
+    ngAfterViewChecked(): void {
+        const links = this.el.nativeElement.querySelectorAll('a');
+        links.forEach((link: HTMLElement) => {
+            this.renderer.setStyle(link, 'text-decoration', 'none');
         });
     }
 }
