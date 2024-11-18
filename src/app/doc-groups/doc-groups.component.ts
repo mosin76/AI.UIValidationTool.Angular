@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { UtilsService } from '../shared/utils.service';
 import { Router } from '@angular/router';
 import { AutoSquaredBaseComponent } from '../shared/autosquared-base-component';
@@ -22,7 +22,9 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
     constructor(private reviewService: DocumentGroupsApiService,
         utils: UtilsService,
         router: Router,
-        auth: AuthService,) {
+        auth: AuthService,
+        private renderer: Renderer2,        // Import Renderer2
+        private el: ElementRef,) {
             super(utils,auth, router);
     }
 
@@ -84,6 +86,12 @@ export class DocumentGroupsComponent extends AutoSquaredBaseComponent {
             });
 
             this.loading = false;
+        });
+    }
+    ngAfterViewChecked(): void {
+        const links = this.el.nativeElement.querySelectorAll('a');
+        links.forEach((link: HTMLElement) => {
+            this.renderer.setStyle(link, 'text-decoration', 'none');
         });
     }
 }
