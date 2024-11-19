@@ -1,6 +1,6 @@
 <div class="container">
     <div class="text-right" style="text-align: right;">
-        <p *ngIf="!isTenantUser" class="m-0">You are viewing <strong>{{tenant.name}}</strong> data. <a [routerLink]="['']">Click here to change</a></p>
+        <p *ngIf="!isTenantUser"  class="m-0">You are viewing <strong>{{tenant.name}}</strong> data. <a [routerLink]="['']">Click here to change</a></p>
     </div>
     <div style="text-align: center;" *ngIf="loading">
         <img src="../../assets/images/logo/loading.gif" alt="">
@@ -61,8 +61,25 @@
        
         <div>
             <hr class="section-separator">
-            <div >
-                <rm-image-slider [images]="imageObjectmox" manageImageRatio="true" #nav></rm-image-slider>
+            <div>
+                <div *ngIf="imageObjectmox.length > 0" class="image-gallery" style="justify-content:center">
+                    <div class="image-container" style="width:200px;height:200px" *ngFor="let image of imageObjectmox">
+                        <img [src]="image.image" (click)="openFullScreen(image)" (error)="imageLoadFailed($event)" />
+                        <p class="imagetitle">{{ image.title }}</p>
+                    </div>
+                </div>
+
+                <!-- Full-screen Modal -->
+                <div *ngIf="isFullScreen" class="full-screen-modal" (click)="closeFullScreen()">
+                    <div class="full-screen-content">
+                        <button class="close-btn" (click)="closeFullScreen()">X</button>
+                        <img [src]="selectedImage?.image" alt="Full Screen Image" />
+                        <button class="btn btn-outline-secondary close-btn-btn" style="justify-content:right" (click)="closeFullScreen()">Close</button>
+                    </div>
+
+                </div>
+
+                <!-- <rm-image-slider [images]="imageObjectmox" [config]="{ thumbnailWidth: 200, thumbnailHeight: 200 }"   manageImageRatio="false" #nav></rm-image-slider>-->
             </div>
         </div>
       

@@ -35,7 +35,11 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   fileLoadingError: string;
   imageObjectmox: Array<ImageObject>=[];
   imageElement: any;
+  isImagePopupVisible = false;
+  currentImage: string | null = null;
   imageScale: any;
+  isFullScreen = false;
+  selectedImage: any = null;
  
   @ViewChild('instance', { static: false }) typeaheadInstance: NgbTypeahead;
 
@@ -70,7 +74,16 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   }
   ngAfterViewInit() {
 }
+    openFullScreen(image: any): void {
+        this.selectedImage = image;
+        this.isFullScreen = true;
+    }
 
+    // Close the full-screen modal
+    closeFullScreen(): void {
+        this.isFullScreen = false;
+        this.selectedImage = null;
+    }
   getLabelName(labelId) {
     let labelIndex = this.labels.findIndex(x => x.id === labelId);
     return this.labels[labelIndex]?.name || '';
@@ -232,7 +245,8 @@ saveUpdateReview() {
   }).add(() => {
       this.saving = false;
   });
-}
+    }
+
 // Handles errors when an image fails to load.
 imageLoadFailed(error: Event) {
  
@@ -267,5 +281,9 @@ image: 'getDownloadUrl(1465)',
   alt: 'Image alt'
 }
 
-];
+    ];
+    config = {
+        thumbnailWidth: 200,
+        thumbnailHeight: 200,
+    };
 }
