@@ -14,7 +14,7 @@ import { ImageObject } from 'rm-image-slider/lib/interface';
 @Component({
   selector: 'app-review-asset',
   templateUrl: './review-asset.component.html',
-    styleUrl: './review-asset.component.scss',
+  styleUrl: './review-asset.component.scss',
 })
 export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   loading: boolean = false;
@@ -33,13 +33,15 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   groupId: number;
   Assetsimages:any;
   fileLoadingError: string;
-  imageObjectmox: Array<ImageObject>=[];
+    imageObjectmox: Array<ImageObject> = []; 
+    FullimageObjectmox: Array<ImageObject> = [];
   imageElement: any;
   isImagePopupVisible = false;
-  currentImage: string | null = null;
+
   imageScale: any;
-  isFullScreen = false;
-  selectedImage: any = null;
+  isModalOpen = false;
+  currentImage: { thumbImage?: string; posterImage?: string; title?: string } | null = null;
+
  
   @ViewChild('instance', { static: false }) typeaheadInstance: NgbTypeahead;
 
@@ -59,7 +61,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
 ) {
     super(utils, auth, router);
 }
-  ngOnInit() {
+    ngOnInit() {
+        this.isModalOpen = false;
     this.init();
     this.route.queryParams.subscribe(params => {
         this.groupId = params['groupId'];
@@ -67,24 +70,19 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         this.getLabels(tenantId);
         if (this.utils.pageTrackingData == 1) {
             this.getAsset(null);
-            this.getAssetImages(null)
+            this.getAssetThumbImages(null);
+            this.getAssetFullImages(null);
             this.utils.pageTrackingData = this.utils.pageTrackingData + 1;
         }
     });
   }
   ngAfterViewInit() {
 }
-    openFullScreen(image: any): void {
-        this.selectedImage = image;
-        this.isFullScreen = true;
-    }
+   
+ 
 
-    // Close the full-screen modal
-    closeFullScreen(): void {
-        this.isFullScreen = false;
-        this.selectedImage = null;
-    }
-  getLabelName(labelId) {
+    getLabelName(labelId) {
+        this.isModalOpen = false;
     let labelIndex = this.labels.findIndex(x => x.id === labelId);
     return this.labels[labelIndex]?.name || '';
 }
@@ -111,7 +109,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
       this.cdr.detectChanges();  // Trigger change detection
   }
   //Handles the document response, updating the current document, available labels, and save state.
-  handleAssetResponse(response: Response<AssetInfoInfoResponse>) {
+    handleAssetResponse(response: Response<AssetInfoInfoResponse>) {
+        this.isModalOpen = false;
    
     if (response.success === false) {
         this.toastr.error(response.message);
@@ -126,9 +125,10 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         
     }
     else {
+        this.isModalOpen = false;
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         this.currentDocument = response.data.currentAsset;
-        //this.downloadUrl = this.reviewService.getDownloadUrl(tenantId, this.currentDocument.id);
+
         this.totalCount = response.data.numberOfAssets;
         console.log (this.totalCount);
         
@@ -144,7 +144,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     this.proposedLabels = '';
 }
   getAsset(skipDocId: number | null) {
-    this.loading = true;
+      this.loading = true;
+      this.isModalOpen = false;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     this.reviewService.getAsset(tenantId, this.groupId).subscribe(data => {
@@ -152,7 +153,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         this.loading = false;
     });
   }
-  getAssetImages(skipDocId: number | null) {
+    getAssetThumbImages(skipDocId: number | null) {
+        this.isModalOpen = false;
     this.loading = true;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
@@ -160,12 +162,12 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         this.Assetsimages=data;
         this.imageObjectmox.pop();
 
-        this.Assetsimages.forEach(element => {
-          let url=this.getDownloadUrl(element.id);
+        this.Assetsimages.forEach(item => {
+          let url=this.getDownloadThumbnailUrl(item.id);
           this.imageObjectmox.push({
             image:url,
             thumbImage:url,
-              title: element.name,
+              title: item.name,
               index: this.imageObjectmox.length
         });
       });
@@ -200,13 +202,15 @@ reject(docLabelId: number) {
 
     return this.labels.find(x => x.id === labelId)?.helpText;
 }
-getDownloadUrl(pictureid) {
-  //this.loading = true;
+    getDownloadThumbnailUrl(pictureid) {
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
-    
-    return this.reviewService.getimageDownloadUrl(tenantId,pictureid )
-    //this.loading = true;
-}
+    return this.reviewService.getThumbnailDownloadUrl(tenantId,pictureid )
+    }
+    getDownloadFullImgUrl(pictureid) {
+        var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
+        return this.reviewService.getFullImageDownloadUrl(tenantId, pictureid)
+       
+    }
 // Prepares the document's review state information for saving.
 getUpdateSaveInfo(): DocClassificationChangeSaveInfo {
   
@@ -253,7 +257,42 @@ imageLoadFailed(error: Event) {
   console.error('Image load failed:', error, ' URL', this.downloadUrl);
   this.fileLoadingError = error.toString();
   //this.currentDocument.type = 'E';
-}
+    }
+    getAssetFullImages(skipDocId: number | null): void {
+        this.isModalOpen = false;
+        const tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
+        this.loading = true;
+        this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
+            this.Assetsimages = data;
+            this.FullimageObjectmox = [];
+            this.Assetsimages.forEach((item, index) => {
+                const url = this.getDownloadFullImgUrl(item.id);
+                this.FullimageObjectmox.push({
+                    image: url,
+                    posterImage: url,
+                    title: item.name,
+                    index
+                });
+                this.loading = false;
+            });
+            const initialIndex = skipDocId
+                ? this.FullimageObjectmox.findIndex(item => item.index === skipDocId)
+                : 0;
+
+            this.openModal(initialIndex);
+        });
+    }
+    openModal(index: number): void {
+
+        this.currentImage = this.FullimageObjectmox[index];
+        this.isModalOpen = true;
+    }
+
+    closeModal(): void {
+        this.isModalOpen = false;
+        this.currentImage = null;
+    }
+
 ngOnDestroy(): void {
   this.reviewService
       .userReviewDone()

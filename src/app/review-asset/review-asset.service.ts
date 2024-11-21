@@ -73,8 +73,15 @@ export class ReviewAssetService {
         return this.http.get<Response<Assetsimages>>(url);
        
     }
-    getimageDownloadUrl(tenantId, documentId): string {
+    getFullImageDownloadUrl(tenantId, documentId): string {
         var url = this.baseUrlDoc + 'assetsimgs-download?documentId=' + documentId;
+        if (tenantId !== null && tenantId !== undefined && tenantId !== '')
+            url = url + '&tenantId=' + tenantId;
+
+        return url;
+    }
+    getThumbnailDownloadUrl(tenantId, documentId): string {
+        var url = this.baseUrlDoc + 'assetsThumbs-download?documentId=' + documentId;
         if (tenantId !== null && tenantId !== undefined && tenantId !== '')
             url = url + '&tenantId=' + tenantId;
 

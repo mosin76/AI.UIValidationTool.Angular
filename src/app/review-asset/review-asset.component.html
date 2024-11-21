@@ -63,22 +63,22 @@
             <hr class="section-separator">
             <div>
                 <div *ngIf="imageObjectmox.length > 0" class="image-gallery" style="justify-content:center">
-                    <div class="image-container" style="width:200px;height:200px" *ngFor="let image of imageObjectmox">
-                        <img [src]="image.image" (click)="openFullScreen(image)" (error)="imageLoadFailed($event)" />
-                        <p class="imagetitle">{{ image.title }}</p>
+                    <div class="image-container" style="width:200px;height:200px" *ngFor="let image of imageObjectmox; let i = index">
+                        <img class="image-view" [src]="image.image"
+                             (click)="openModal(i)"
+                             (error)="imageLoadFailed($event)" />
+                        <p class="imagetitle" style="font-size:10px">{{ image.title }}</p>
+
                     </div>
                 </div>
 
                 <!-- Full-screen Modal -->
-                <div *ngIf="isFullScreen" class="full-screen-modal" (click)="closeFullScreen()">
-                    <div class="full-screen-content">
-                        <button class="close-btn" (click)="closeFullScreen()">X</button>
-                        <img [src]="selectedImage?.image" alt="Full Screen Image" />
-                        <button class="btn btn-outline-secondary close-btn-btn" style="justify-content:right" (click)="closeFullScreen()">Close</button>
+                <div class="modal" *ngIf="currentImage" style="position: fixed;  width: 100%; height: 100%; background: white; display: flex; align-items: center; justify-content: center; z-index: 1000;">
+                    <div class="modal-content">
+                        <img class="img-contain" [src]="currentImage?.image" alt="Selected Image" />
+                        <button class="close-btn-btn" (click)="closeModal()">Close</button>
                     </div>
-
                 </div>
-
                 <!-- <rm-image-slider [images]="imageObjectmox" [config]="{ thumbnailWidth: 200, thumbnailHeight: 200 }"   manageImageRatio="false" #nav></rm-image-slider>-->
             </div>
         </div>

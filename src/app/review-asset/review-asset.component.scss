@@ -41,55 +41,61 @@
         border-radius: 8px;
         text-align: center;
 }
-        img {
-            width: 100%;
-            height: 90%; 
-            object-fit: cover;
-            border-radius: 8px; 
-        }
 
-.imagetitle {
-    padding: 0px;
-    margin-top: 4px;
-    font-size: 10px;
-    color: black;
-}
 
-.full-screen-modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+    background: white;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     z-index: 1000;
 }
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background:none;
-    color: none;
-    border: 1px solid white;
-    font-size: 20px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1001; /* Ensure it's above the image */
-}
-.close-btn-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-   
-     /* Ensure it's above the image */
-}
-.full-screen-content img {
+
+.modal-content {
+    position: relative;
     max-width: 90%;
     max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
+.image-view{
+    top:0px;
+    width:100%;
+    height:90%;
+}
+.img-contain {
+    padding: 0;
+    margin: 0;
+    object-fit:contain;
+    display: flex;
+    max-width: none; /* Remove max-width to allow original size */
+    max-height: none; /* Remove max-height to allow original size */
+}
+
+.close-btn-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    margin:10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-btn-btn:hover {
+    background-color: #0056b3;
+}
+
 
 /* Form container styling */
 .form-container {
