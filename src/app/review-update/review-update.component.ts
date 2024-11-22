@@ -170,10 +170,11 @@ export class ReviewUpdateComponent extends AutoSquaredBaseComponent implements O
     }
 
     getLabels() {
-        this.reviewService.getClassificationLabelsTree().subscribe(data => {
+        var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
+        this.reviewService.getClassificationLabelsTree(tenantId).subscribe(data => {
             this.labelsTree = data;
         });
-        this.reviewService.getClassificationLabels().subscribe(data => {
+        this.reviewService.getClassificationLabels(tenantId).subscribe(data => {
             this.labels = data;
             if (this.currentUpdate != null)
                 this.availableLabels = this.labels.filter(x => !this.currentUpdate.classifications.some(y => y.classificationLabelId == x.id));
