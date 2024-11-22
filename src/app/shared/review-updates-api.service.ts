@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
     providedIn: 'root'
 })
 export class ReviewUpdatesApiService {
-    private baseUrl = environment.apis.default.url + '/api/review-updates/';
+    private baseUrl = environment.apis.default.url + '/api/updates/';
 
     constructor(private http: HttpClient) { }
 
@@ -28,12 +28,19 @@ export class ReviewUpdatesApiService {
         return this.http.get<any>(url);
     }
 
-    getClassificationLabelsTree(): Observable<any> {
-        return this.http.get<LabelNode[]>(this.baseUrl + 'classification-labels-tree');
+    getClassificationLabelsTree(tenantid): Observable<any> {
+        let url=this.baseUrl +'classification-labels-tree';
+        if (tenantid !== null && tenantid !== undefined && tenantid !== '')
+            url = url + '?tenantId=' + tenantid;
+
+        return this.http.get<LabelNode[]>(url);
     }
 
-    getClassificationLabels(): Observable<any> {
-        return this.http.get<any>(this.baseUrl + 'classification-labels');
+    getClassificationLabels(tenantid): Observable<any> {
+        let url=this.baseUrl +'classification-labels';
+        if (tenantid !== null && tenantid !== undefined && tenantid !== '')
+            url = url + '?tenantId=' + tenantid;
+        return this.http.get<any>(url);
     }
 
     saveUpdateReview(data: ReviewChangeSaveInfo): Observable<any> {

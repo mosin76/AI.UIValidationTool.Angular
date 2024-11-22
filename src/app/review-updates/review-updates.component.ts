@@ -158,11 +158,12 @@ export class ReviewUpdatesComponent extends AutoSquaredBaseComponent implements 
     }
 
     getLabels() {
-        this.reviewService.getClassificationLabelsTree().subscribe(data => {
+        var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
+        this.reviewService.getClassificationLabelsTree(tenantId).subscribe(data => {
             this.labelsTree = data;
         });
 
-        this.reviewService.getClassificationLabels().subscribe(labelData => {
+        this.reviewService.getClassificationLabels(tenantId).subscribe(labelData => {
             this.labels = labelData;
 
             if (this.labels && this.data && this.data.items) {
