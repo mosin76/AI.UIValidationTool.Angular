@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Full-screen Modal -->
-                <div class="modal" *ngIf="currentImage" style="position: fixed;  width: 100%; height: 100%; background: white; display: flex; align-items: center; justify-content: center; z-index: 1000;">
+                <div class="modal" *ngIf="currentImage">
                     <div class="modal-content">
                         <img class="img-contain" [src]="currentImage?.image" alt="Selected Image" />
                         <button class="close-btn-btn" (click)="closeModal()">Close</button>

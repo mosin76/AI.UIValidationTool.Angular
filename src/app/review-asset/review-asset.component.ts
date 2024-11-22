@@ -33,8 +33,8 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   groupId: number;
   Assetsimages:any;
   fileLoadingError: string;
-    imageObjectmox: Array<ImageObject> = []; 
-    FullimageObjectmox: Array<ImageObject> = [];
+  imageObjectmox: Array<ImageObject> = []; 
+  FullimageObjectmox: Array<ImageObject> = [];
   imageElement: any;
   isImagePopupVisible = false;
 
@@ -62,7 +62,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     super(utils, auth, router);
 }
     ngOnInit() {
-        this.isModalOpen = false;
     this.init();
     this.route.queryParams.subscribe(params => {
         this.groupId = params['groupId'];
@@ -82,7 +81,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
  
 
     getLabelName(labelId) {
-        this.isModalOpen = false;
     let labelIndex = this.labels.findIndex(x => x.id === labelId);
     return this.labels[labelIndex]?.name || '';
 }
@@ -110,7 +108,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
   }
   //Handles the document response, updating the current document, available labels, and save state.
     handleAssetResponse(response: Response<AssetInfoInfoResponse>) {
-        this.isModalOpen = false;
    
     if (response.success === false) {
         this.toastr.error(response.message);
@@ -125,7 +122,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
         
     }
     else {
-        this.isModalOpen = false;
         var tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         this.currentDocument = response.data.currentAsset;
 
@@ -145,7 +141,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
 }
   getAsset(skipDocId: number | null) {
       this.loading = true;
-      this.isModalOpen = false;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
     this.reviewService.getAsset(tenantId, this.groupId).subscribe(data => {
@@ -154,7 +149,6 @@ export class ReviewAssetComponent extends AutoSquaredBaseComponent{
     });
   }
     getAssetThumbImages(skipDocId: number | null) {
-        this.isModalOpen = false;
     this.loading = true;
     var tenantId: string| null = this.isTenantUser ? null : this.tenant.id;
     
@@ -259,7 +253,6 @@ imageLoadFailed(error: Event) {
   //this.currentDocument.type = 'E';
     }
     getAssetFullImages(skipDocId: number | null): void {
-        this.isModalOpen = false;
         const tenantId: string | null = this.isTenantUser ? null : this.tenant.id;
         this.loading = true;
         this.reviewService.getAssetImages(tenantId, this.groupId).subscribe(data => {
@@ -279,7 +272,7 @@ imageLoadFailed(error: Event) {
                 ? this.FullimageObjectmox.findIndex(item => item.index === skipDocId)
                 : 0;
 
-            this.openModal(initialIndex);
+           // this.openModal(initialIndex);
         });
     }
     openModal(index: number): void {
