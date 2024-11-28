@@ -43,8 +43,7 @@ export class HomeComponent extends AutoSquaredBaseComponent {
         this.utils.setCurrentTenant(tenant);
 
         // redirect to updates page
-        this.router.navigate(['/updatetypes']).then(() => {
-            window.location.reload();})
+        this.router.navigate(['/updatetypes'])
     }
 
     gotoReviewDocuments(tenant: CurrentTenant) {
